@@ -145,15 +145,13 @@ export default function CareerTimeline() {
     <AnimatedSection id="timeline" className="py-16">
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
-        <div className="relative mt-10 hidden md:block">
-        <div className="relative mx-auto min-h-[260px] max-w-6xl px-6">
+      <div className="relative mt-10 hidden md:block">
+        <div className="relative mx-auto min-h-[300px] max-w-6xl px-6">
           <div className="absolute left-0 right-0 top-1/2 flex -translate-y-1/2 items-center justify-between">
             {scaleDots.map((_, index) => (
               <span
                 key={`dot-${index}`}
-                className={`h-1.5 w-1.5 rounded-full bg-blue-400/40 shadow-[0_0_10px_rgba(59,130,246,0.45)] ${
-                  index % 2 === 0 ? "-translate-y-2" : "translate-y-2"
-                }`}
+                className="h-1.5 w-1.5 rounded-full bg-blue-400/40 shadow-[0_0_10px_rgba(59,130,246,0.45)]"
               />
             ))}
           </div>
@@ -232,7 +230,7 @@ export default function CareerTimeline() {
             );
           })}
 
-          <div className="mt-28 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-slate-500">
+          <div className="mt-32 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-slate-500">
             <span>2019</span>
             <span>2026</span>
           </div>
