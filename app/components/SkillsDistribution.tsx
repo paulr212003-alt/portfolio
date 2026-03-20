@@ -45,7 +45,7 @@ export default function SkillsDistribution() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   return (
-    <AnimatedSection id="skills" className="py-16">
+    <AnimatedSection id="skills" className="py-12 md:py-16">
       <SectionHeader title="Skills Distribution" subtitle="Expertise" />
       <div ref={sectionRef} className="grid gap-6 lg:grid-cols-2">
         {[

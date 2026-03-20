@@ -38,7 +38,7 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <AnimatedSection id="projects" className="py-16">
+    <AnimatedSection id="projects" className="py-12 md:py-16">
       <SectionHeader title="Projects" subtitle="Portfolio" />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (

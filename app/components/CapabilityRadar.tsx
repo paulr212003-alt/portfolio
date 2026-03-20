@@ -149,7 +149,7 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
   }
 
   return (
-    <AnimatedSection id="capabilities" className="py-16">
+    <AnimatedSection id="capabilities" className="py-12 md:py-16">
       <SectionHeader title="AI Capability Radar" subtitle="Signal Map" />
       {content}
     </AnimatedSection>

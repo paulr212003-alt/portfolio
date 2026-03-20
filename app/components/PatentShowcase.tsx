@@ -8,10 +8,13 @@ import SectionHeader from "./SectionHeader";
 
 export default function PatentShowcase() {
   const [openPdf, setOpenPdf] = useState(false);
-  const [openImages, setOpenImages] = useState(false);
+  const openPatentImages = () => {
+    window.open("/patent-1.pdf", "_blank", "noopener,noreferrer");
+    window.open("/patent-2.pdf", "_blank", "noopener,noreferrer");
+  };
 
   return (
-    <AnimatedSection id="research" className="py-16">
+    <AnimatedSection id="research" className="py-12 md:py-16">
       <SectionHeader title="Research & Intellectual Property" subtitle="Patents" />
       <div className="glow-card neon-border p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -36,22 +39,23 @@ export default function PatentShowcase() {
           <button
             type="button"
             onClick={() => setOpenPdf(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-purple-400/40 bg-purple-500/10 px-5 py-2 text-sm text-white transition hover:border-purple-300"
+            className="inline-flex h-11 items-center gap-2 rounded-full border border-purple-400/40 bg-purple-500/10 px-5 text-sm font-semibold text-white transition hover:border-purple-300 md:hover:shadow-[0_0_18px_rgba(147,51,234,0.45)] active:scale-[0.98]"
           >
             <FileText size={16} />
             View Publication
           </button>
           <button
             type="button"
-            onClick={() => setOpenImages(true)}
-            className="group inline-flex items-center justify-center rounded-full p-0"
-            aria-label="View patent images"
+            onClick={openPatentImages}
+            className="group inline-flex h-11 items-center justify-center rounded-full border border-indigo-400/40 bg-indigo-500/10 px-5 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-100 transition hover:border-indigo-300 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.45)] active:scale-[0.98]"
+            aria-label="Open patent documents"
           >
-            <img
-              src="/Patent_Icon.png"
-              alt="Patent images icon"
-              className="h-11 w-11 rounded-full border border-indigo-400/30 bg-black/40 object-cover shadow-[0_0_18px_rgba(99,102,241,0.6)] transition group-hover:shadow-[0_0_26px_rgba(99,102,241,0.9)]"
-            />
+            <span className="relative inline-flex items-center">
+              Patent
+              <span className="absolute -right-2 -top-1 text-[9px] text-indigo-200">
+                ↗
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -96,50 +100,6 @@ export default function PatentShowcase() {
         ) : null}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {openImages ? (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setOpenImages(false)}
-          >
-            <motion.div
-              className="glow-card neon-border w-full max-w-4xl rounded-3xl bg-black/85 p-6 text-slate-200"
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">
-                  Patent Image Evidence
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setOpenImages(false)}
-                  className="rounded-full border border-indigo-400/40 bg-indigo-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-indigo-100 transition hover:border-indigo-300"
-                >
-                  Back / Close
-                </button>
-              </div>
-              <div className="mt-6 grid gap-4 lg:grid-cols-2">
-                <img
-                  src="/patent-1.png"
-                  alt="Patent application details"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 p-2"
-                />
-                <img
-                  src="/patent-2.png"
-                  alt="Patent application status"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 p-2"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
     </AnimatedSection>
   );
 }

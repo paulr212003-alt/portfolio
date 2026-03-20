@@ -120,11 +120,19 @@ const events: TimelineEvent[] = [
 
 const scaleDots = Array.from({ length: 32 });
 const vitStartIndex = 11;
-const vitEndIndex = 28;
-const vitMarkers = Array.from(
-  { length: vitEndIndex - vitStartIndex },
-  (_, index) => vitStartIndex + index + 0.5
+const vitStartPosition = (vitStartIndex / (scaleDots.length - 1)) * 100;
+const vitEndPosition = events.find((event) => event.id === "patent")?.position ?? 74;
+const vitMarkerCount = Math.max(
+  8,
+  Math.round((vitEndPosition - vitStartPosition) / 3)
 );
+const vitMarkers = Array.from({ length: vitMarkerCount }, (_, index) => {
+  if (vitMarkerCount === 1) return vitEndPosition;
+  return (
+    vitStartPosition +
+    (index / (vitMarkerCount - 1)) * (vitEndPosition - vitStartPosition)
+  );
+});
 
 export default function CareerTimeline() {
   const [active, setActive] = useState<TimelineEvent | null>(null);
@@ -142,7 +150,7 @@ export default function CareerTimeline() {
   };
 
   return (
-    <AnimatedSection id="timeline" className="py-16">
+    <AnimatedSection id="timeline" className="py-12 md:py-16">
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
       <div className="relative mt-10 hidden md:block">
@@ -160,7 +168,7 @@ export default function CareerTimeline() {
               <span
                 key={`vit-${position}`}
                 className="absolute h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.9)]"
-                style={{ left: `${(position / (scaleDots.length - 1)) * 100}%` }}
+                style={{ left: `${position}%` }}
               />
             ))}
           </div>
@@ -253,7 +261,7 @@ export default function CareerTimeline() {
               <span
                 key={`vit-mobile-${position}`}
                 className="absolute h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.9)]"
-                style={{ top: `${(position / (scaleDots.length - 1)) * 100}%` }}
+                style={{ top: `${position}%` }}
               />
             ))}
           </div>

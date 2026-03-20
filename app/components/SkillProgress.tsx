@@ -45,7 +45,7 @@ export default function SkillProgress({ embedded }: SkillProgressProps) {
   }
 
   return (
-    <AnimatedSection id="progress" className="py-16">
+    <AnimatedSection id="progress" className="py-12 md:py-16">
       <SectionHeader title="Skill Progress" subtitle="Strength Index" />
       {content}
     </AnimatedSection>

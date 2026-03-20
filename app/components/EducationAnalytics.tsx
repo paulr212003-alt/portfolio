@@ -25,7 +25,7 @@ export default function EducationAnalytics() {
   const isInView = useInView(chartRef, { once: true, amount: 0.4 });
 
   return (
-    <AnimatedSection id="education" className="py-16">
+    <AnimatedSection id="education" className="py-12 md:py-16">
       <SectionHeader title="Education Analytics" subtitle="Performance" />
       <div className="glow-card neon-border p-6">
         <div className="mb-4 flex items-center justify-between text-sm text-slate-400">

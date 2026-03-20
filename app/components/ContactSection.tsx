@@ -34,7 +34,7 @@ const contacts = [
 
 export default function ContactSection() {
   return (
-    <AnimatedSection id="contact" className="py-16">
+    <AnimatedSection id="contact" className="py-12 md:py-16">
       <SectionHeader title="Contact" subtitle="Connect" />
       <div className="grid gap-6 md:grid-cols-2">
         <div className="glow-card neon-border p-6">
@@ -50,7 +50,7 @@ export default function ContactSection() {
               href="tel:+919315280887"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="glow-box inline-flex items-center gap-2 rounded-full border border-indigo-400/50 bg-indigo-500/10 px-5 py-2 text-sm text-white transition hover:border-indigo-300"
+              className="glow-box inline-flex h-11 items-center gap-2 rounded-full border border-indigo-400/50 bg-indigo-500/10 px-5 text-sm font-semibold text-white transition hover:border-indigo-300 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.35)] active:scale-[0.98]"
             >
               <Phone size={16} />
               Call Me
@@ -59,7 +59,7 @@ export default function ContactSection() {
               href="mailto:paul.r212003@gmail.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="glow-box inline-flex items-center gap-2 rounded-full border border-blue-400/50 bg-blue-500/10 px-5 py-2 text-sm text-white transition hover:border-blue-300"
+              className="glow-box inline-flex h-11 items-center gap-2 rounded-full border border-blue-400/50 bg-blue-500/10 px-5 text-sm font-semibold text-white transition hover:border-blue-300 md:hover:shadow-[0_0_18px_rgba(59,130,246,0.35)] active:scale-[0.98]"
             >
               <Mail size={16} />
               Email
@@ -69,7 +69,7 @@ export default function ContactSection() {
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-white transition hover:border-white/30 hover:bg-white/10"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 md:hover:shadow-[0_0_18px_rgba(148,163,184,0.35)] active:scale-[0.98]"
             >
               <Download size={16} />
               Download Resume

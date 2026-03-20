@@ -17,17 +17,17 @@ export default function HeroSection() {
   const [terminalMode, setTerminalMode] = useState(false);
 
   return (
-    <section className="relative overflow-hidden pb-16 pt-20">
-        <div className="relative z-10 grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+    <section className="relative overflow-hidden pb-12 pt-16 md:pb-16 md:pt-20">
+      <div className="relative z-10 grid gap-10 md:gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="relative">
           <div className="relative z-10">
             <p className="text-sm uppercase tracking-[0.4em] text-[rgb(var(--theme-accent-2-rgb)_/_0.9)]">
               Portfolio
             </p>
-            <h1 className="mt-4 text-4xl font-semibold text-white md:text-6xl font-display glow-text">
+            <h1 className="mt-4 text-3xl font-semibold text-white sm:text-4xl md:text-6xl font-display glow-text">
               Rishabh Paul
             </h1>
-            <h2 className="mt-4 text-xl text-[rgb(var(--theme-accent-rgb)_/_0.85)] md:text-2xl">
+            <h2 className="mt-4 text-lg text-[rgb(var(--theme-accent-rgb)_/_0.85)] sm:text-xl md:text-2xl">
               AI / Machine Learning Engineer | Automation & Manufacturing Analytics
             </h2>
             <p className="mt-6 max-w-xl text-base text-slate-300 md:text-lg">
@@ -35,10 +35,10 @@ export default function HeroSection() {
               analytics, and AI-driven automation.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-4 md:mt-10">
               <a
                 href="#projects"
-                className="glow-box inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40"
+                className="glow-box inline-flex h-11 items-center gap-2 rounded-full border px-6 text-sm font-semibold text-white transition hover:border-white/40 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.35)] active:scale-[0.98]"
                 style={{
                   borderColor: "rgb(var(--theme-accent-2-rgb) / 0.6)",
                   background:
@@ -51,7 +51,7 @@ export default function HeroSection() {
               <a
                 href="/resume.pdf"
                 download
-                className="glow-box inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40"
+                className="glow-box inline-flex h-11 items-center gap-2 rounded-full border px-6 text-sm font-semibold text-white transition hover:border-white/40 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.35)] active:scale-[0.98]"
                 style={{
                   borderColor: "rgb(var(--theme-accent-2-rgb) / 0.6)",
                   background: "rgb(var(--theme-accent-2-rgb) / 0.12)",
@@ -62,7 +62,7 @@ export default function HeroSection() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.25)] active:scale-[0.98]"
               >
                 Contact Me
                 <Mail size={16} />
@@ -71,7 +71,7 @@ export default function HeroSection() {
                 href="https://www.linkedin.com/in/rishabh-paul/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.25)] active:scale-[0.98]"
               >
                 LinkedIn
                 <Linkedin size={16} />
@@ -80,67 +80,118 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="cyber-panel neon-border glow-box relative overflow-hidden p-7">
+        <div className="cyber-panel neon-border glow-box relative overflow-hidden p-5 md:p-7">
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,_rgba(148,163,184,0.12),_transparent_50%)]" />
           <div className="pointer-events-none absolute -left-10 top-6 h-24 w-24 rounded-full bg-blue-500/10 blur-2xl" />
           <div className="pointer-events-none absolute -right-8 bottom-6 h-20 w-20 rounded-full bg-indigo-500/10 blur-2xl" />
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-              AI Command Center
-            </p>
-            <button
-              type="button"
-              onClick={() => setTerminalMode((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs uppercase tracking-[0.2em] text-indigo-100 transition hover:border-white/40"
-              style={{
-                borderColor: "rgb(var(--theme-accent-2-rgb) / 0.4)",
-                background: "rgb(var(--theme-accent-2-rgb) / 0.12)",
-              }}
-            >
-              <Terminal size={14} />
-              {terminalMode ? "Exit Terminal" : "Switch to Terminal Mode"}
-            </button>
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-3 text-[10px] uppercase tracking-[0.25em] text-slate-400">
-            {"SYS NAV AUTO".split(" ").map((item) => (
-              <div
-                key={item}
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-center"
+          <div className="hidden md:block">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+                AI Command Center
+              </p>
+              <button
+                type="button"
+                onClick={() => setTerminalMode((prev) => !prev)}
+                className="inline-flex h-10 items-center gap-2 rounded-full border px-4 text-xs uppercase tracking-[0.2em] text-indigo-100 transition hover:border-white/40"
+                style={{
+                  borderColor: "rgb(var(--theme-accent-2-rgb) / 0.4)",
+                  background: "rgb(var(--theme-accent-2-rgb) / 0.12)",
+                }}
               >
-                {item}
+                <Terminal size={14} />
+                {terminalMode ? "Exit Terminal" : "Switch to Terminal Mode"}
+              </button>
+            </div>
+            <div className="mt-4 grid grid-cols-3 gap-3 text-[10px] uppercase tracking-[0.25em] text-slate-400">
+              {"SYS NAV AUTO".split(" ").map((item) => (
+                <div
+                  key={item}
+                  className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-center"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 grid gap-4 text-sm text-slate-200 sm:grid-cols-2">
+              {stats.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex min-h-[110px] flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-center"
+                >
+                  <p className="text-xs tracking-[0.2em] text-slate-400">
+                    {item.label}
+                  </p>
+                  <p className="mt-2 text-sm font-semibold leading-relaxed text-white">
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {terminalMode ? (
+              <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-black/60 p-4 font-mono text-xs text-emerald-200">
+                <p className="text-emerald-400">&gt; whoami</p>
+                <p className="mt-1">Rishabh Paul</p>
+                <p className="mt-4 text-emerald-400">&gt; skills</p>
+                <p className="mt-1">Machine Learning</p>
+                <p>Deep Learning</p>
+                <p>Automation Systems</p>
+                <p className="mt-4 text-emerald-400">&gt; experience</p>
+                <p className="mt-1">Rico Auto Industries Ltd</p>
+                <p>Samsung PRISM</p>
+                <p>Engineers India Ltd</p>
               </div>
-            ))}
-          </div>
-          <div className="mt-6 grid gap-4 text-sm text-slate-200 sm:grid-cols-2">
-            {stats.map((item) => (
-              <div
-                key={item.label}
-                className="flex min-h-[120px] flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-center"
-              >
-                <p className="text-xs tracking-[0.2em] text-slate-400">
-                  {item.label}
-                </p>
-                <p className="mt-2 text-sm font-semibold leading-relaxed text-white">
-                  {item.value}
-                </p>
-              </div>
-            ))}
+            ) : null}
           </div>
 
-          {terminalMode ? (
-            <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-black/60 p-4 font-mono text-xs text-emerald-200">
-              <p className="text-emerald-400">&gt; whoami</p>
-              <p className="mt-1">Rishabh Paul</p>
-              <p className="mt-4 text-emerald-400">&gt; skills</p>
-              <p className="mt-1">Machine Learning</p>
-              <p>Deep Learning</p>
-              <p>Automation Systems</p>
-              <p className="mt-4 text-emerald-400">&gt; experience</p>
-              <p className="mt-1">Rico Auto Industries Ltd</p>
-              <p>Samsung PRISM</p>
-              <p>Engineers India Ltd</p>
+          <div className="md:hidden space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400">
+                AI Control Panel (Compact Mode)
+              </p>
+              <button
+                type="button"
+                onClick={() => setTerminalMode((prev) => !prev)}
+                className="inline-flex h-9 items-center gap-2 rounded-full border px-3 text-[10px] uppercase tracking-[0.2em] text-indigo-100 transition hover:border-white/40 active:scale-[0.98]"
+                style={{
+                  borderColor: "rgb(var(--theme-accent-2-rgb) / 0.4)",
+                  background: "rgb(var(--theme-accent-2-rgb) / 0.12)",
+                }}
+              >
+                AI Mode {terminalMode ? "On" : "Off"}
+              </button>
             </div>
-          ) : null}
+            <div className="grid grid-cols-3 gap-2 text-[9px] uppercase tracking-[0.25em] text-slate-400">
+              {"SYS NAV AUTO".split(" ").map((item) => (
+                <div
+                  key={item}
+                  className="rounded-md border border-white/10 bg-black/40 px-2 py-2 text-center"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div
+              className={`rounded-xl border px-4 py-4 text-xs transition ${
+                terminalMode
+                  ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.35)]"
+                  : "border-white/10 bg-white/5 text-slate-300"
+              }`}
+            >
+              {terminalMode ? (
+                <div className="space-y-2">
+                  <p className="text-[10px] uppercase tracking-[0.35em] text-emerald-200 animate-pulse">
+                    AI ACTIVE
+                  </p>
+                  <p className="text-slate-200">Monitoring Systems</p>
+                </div>
+              ) : (
+                <p className="text-[10px] uppercase tracking-[0.35em] text-slate-300">
+                  System Idle
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
