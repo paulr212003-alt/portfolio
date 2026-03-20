@@ -19,17 +19,12 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
-    const storedAi = window.localStorage.getItem("portfolio-ai");
-    if (storedAi) {
-      setAiMode(storedAi === "on");
-    }
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
     root.dataset.ai = aiMode ? "on" : "off";
-    window.localStorage.setItem("portfolio-ai", aiMode ? "on" : "off");
   }, [aiMode, mounted]);
 
   useEffect(() => {
@@ -65,17 +60,17 @@ export default function Home() {
             "radial-gradient(circle at top, var(--theme-ambient-1), transparent 55%), radial-gradient(circle at 30% 30%, var(--theme-ambient-2), transparent 45%), radial-gradient(circle at 80% 70%, var(--theme-ambient-3), transparent 50%)",
         }}
       />
-      <TopBar aiMode={aiMode} onAiModeChange={setAiMode} />
+      <TopBar />
       <main className="relative flex w-full flex-col gap-10 px-2 pb-24 sm:px-4 lg:px-8 md:gap-12">
         <div className="flex flex-col gap-6">
           <HeroSection aiMode={aiMode} onAiModeChange={setAiMode} />
           {aiMode ? (
             <div className="md:hidden">
-              <AboutSection />
+              <AboutSection aboutMode={aiMode} onToggle={setAiMode} />
             </div>
           ) : null}
           <div className="hidden md:block">
-            <AboutSection />
+            <AboutSection aboutMode={aiMode} onToggle={setAiMode} />
           </div>
         </div>
         <CareerTimeline />

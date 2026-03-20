@@ -235,7 +235,7 @@ export default function CareerTimeline() {
                     {event.id === "rico" ? (
                       <div className="mt-3 flex items-center justify-center gap-2 text-[12px] uppercase tracking-[0.25em] text-amber-200">
                         <span className="h-3.5 w-3.5 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.95)]" />
-                        : VIT
+                        : VIT (2021-2025)
                       </div>
                     ) : null}
                   </div>
@@ -337,7 +337,7 @@ export default function CareerTimeline() {
                         }`}
                       >
                         <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
-                        VIT
+                        VIT (2021-2025)
                       </div>
                     </div>
                   ) : null}

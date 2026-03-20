@@ -28,28 +28,18 @@ const formatTime = (date: Date) => {
   return `${datePart} | ${timePart}`;
 };
 
-type TopBarProps = {
-  aiMode: boolean;
-  onAiModeChange: (value: boolean) => void;
-};
-
-export default function TopBar({ aiMode, onAiModeChange }: TopBarProps) {
+export default function TopBar() {
   const [time, setTime] = useState("");
-  const [theme, setTheme] = useState("obsidian-core");
+  const [theme, setTheme] = useState("classic");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const storedTheme = window.localStorage.getItem("portfolio-theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
   }, []);
 
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.theme = theme;
-    window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
   useEffect(() => {
@@ -80,7 +70,7 @@ export default function TopBar({ aiMode, onAiModeChange }: TopBarProps) {
             Rishabh Paul Portfolio
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-200">
+          <div className="flex items-center justify-end gap-5 text-xs text-slate-200">
             <div className="flex items-center gap-2">
               <span className="status-dot pulse-slow ai-animate" />
               <span className="uppercase tracking-[0.25em] text-emerald-200">
@@ -96,20 +86,6 @@ export default function TopBar({ aiMode, onAiModeChange }: TopBarProps) {
                 {mounted && time ? time : "Loading..."}
               </span>
             </div>
-            <label className="flex items-center gap-2 uppercase tracking-[0.25em] text-slate-300">
-              About (Profile)
-              <span className="relative inline-flex items-center">
-                <input
-                  type="checkbox"
-                  className="peer sr-only"
-                  checked={aiMode}
-                  onChange={(event) => onAiModeChange(event.target.checked)}
-                  aria-label="Toggle About (Profile) mode"
-                />
-                <span className="h-6 w-12 rounded-full border border-white/10 bg-white/5 transition-all peer-checked:border-emerald-300/50 peer-checked:bg-emerald-500/25" />
-                <span className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-all peer-checked:translate-x-6" />
-              </span>
-            </label>
             <label className="flex items-center gap-2 uppercase tracking-[0.2em] text-slate-300">
               Theme
               <select
