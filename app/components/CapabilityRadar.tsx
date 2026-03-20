@@ -79,6 +79,39 @@ type CapabilityRadarProps = {
 export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(chartRef, { once: true, amount: 0.3 });
+  type AllowedBaseline =
+    | "auto"
+    | "alphabetic"
+    | "central"
+    | "hanging"
+    | "middle"
+    | "ideographic"
+    | "mathematical"
+    | "inherit"
+    | "text-after-edge"
+    | "text-before-edge"
+    | "use-script"
+    | "no-change"
+    | "reset-size";
+  const allowedBaselines: ReadonlyArray<AllowedBaseline> = [
+    "auto",
+    "alphabetic",
+    "central",
+    "hanging",
+    "middle",
+    "ideographic",
+    "mathematical",
+    "inherit",
+    "text-after-edge",
+    "text-before-edge",
+    "use-script",
+    "no-change",
+    "reset-size",
+  ];
+  const isAllowedBaseline = (value: unknown): value is AllowedBaseline =>
+    typeof value === "string" &&
+    allowedBaselines.includes(value as AllowedBaseline);
+
   const angleTick = (props: unknown) => {
     const {
       payload,
@@ -101,12 +134,15 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
       textAnchor === "inherit"
         ? textAnchor
         : "middle";
+    const baseline = isAllowedBaseline(dominantBaseline)
+      ? dominantBaseline
+      : "middle";
     return (
       <text
         x={x}
         y={y}
         textAnchor={anchor}
-        dominantBaseline={dominantBaseline}
+        dominantBaseline={baseline}
         fill={subjectColors[payload.value] ?? "#e2e8f0"}
         fontSize={11}
       >
