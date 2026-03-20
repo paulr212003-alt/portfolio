@@ -89,8 +89,15 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
     payload?: { value?: string };
     x?: number;
     y?: number;
-    textAnchor?: string;
-    dominantBaseline?: string;
+    textAnchor?: "start" | "middle" | "end" | "inherit";
+    dominantBaseline?:
+      | "auto"
+      | "alphabetic"
+      | "central"
+      | "hanging"
+      | "middle"
+      | "ideographic"
+      | "mathematical";
   }) => {
     if (!payload?.value) return null;
     return (
