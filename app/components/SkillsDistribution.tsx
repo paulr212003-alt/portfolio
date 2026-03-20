@@ -69,10 +69,6 @@ export default function SkillsDistribution() {
                     paddingAngle={4}
                     stroke="rgba(0,0,0,0)"
                     isAnimationActive={isInView}
-                    activeIndex={activeTechIndex ?? undefined}
-                    onMouseEnter={(_, index) => setActiveTechIndex(index)}
-                    onMouseLeave={() => setActiveTechIndex(null)}
-                    onClick={(_, index) => setActiveTechIndex(index)}
                   >
                     {technicalSkills.map((entry, index) => (
                       <Cell
@@ -100,11 +96,20 @@ export default function SkillsDistribution() {
               </ResponsiveContainer>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {technicalSkills.map((item, index) => (
-                <div
-                  key={item.name}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                >
+                {technicalSkills.map((item, index) => (
+                  <div
+                    key={item.name}
+                    className={`rounded-xl border px-4 py-3 transition ${
+                      activeTechIndex === index
+                        ? "border-indigo-300/60 bg-indigo-500/10 shadow-[0_0_16px_rgba(99,102,241,0.35)]"
+                        : "border-white/10 bg-white/5"
+                    }`}
+                    onClick={() =>
+                      setActiveTechIndex((prev) => (prev === index ? null : index))
+                    }
+                    onMouseEnter={() => setActiveTechIndex(index)}
+                    onMouseLeave={() => setActiveTechIndex(null)}
+                  >
                   <div className="flex items-center gap-3">
                     <span
                       className="h-3 w-3 rounded-full"

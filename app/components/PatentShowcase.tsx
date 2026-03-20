@@ -8,10 +8,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function PatentShowcase() {
   const [openPdf, setOpenPdf] = useState(false);
-  const openPatentImages = () => {
-    window.open("/patent-1.png", "_blank", "noopener,noreferrer");
-    window.open("/patent-2.png", "_blank", "noopener,noreferrer");
-  };
+  const [showImages, setShowImages] = useState(false);
 
   return (
     <AnimatedSection id="research" className="py-12 md:py-16">
@@ -46,7 +43,7 @@ export default function PatentShowcase() {
           </button>
           <button
             type="button"
-            onClick={openPatentImages}
+            onClick={() => setShowImages((prev) => !prev)}
             className="group inline-flex h-11 items-center justify-center rounded-full border border-indigo-400/40 bg-indigo-500/10 px-5 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-100 transition hover:border-indigo-300 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.45)] active:scale-[0.98]"
             aria-label="Open patent documents"
           >
@@ -56,6 +53,20 @@ export default function PatentShowcase() {
             </span>
           </button>
         </div>
+        {showImages ? (
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <img
+              src="/patent-1.png"
+              alt="Patent document 1"
+              className="w-full rounded-2xl border border-white/10 bg-black/30 object-contain shadow-[0_0_18px_rgba(99,102,241,0.2)]"
+            />
+            <img
+              src="/patent-2.png"
+              alt="Patent document 2"
+              className="w-full rounded-2xl border border-white/10 bg-black/30 object-contain shadow-[0_0_18px_rgba(99,102,241,0.2)]"
+            />
+          </div>
+        ) : null}
       </div>
 
       <AnimatePresence>
