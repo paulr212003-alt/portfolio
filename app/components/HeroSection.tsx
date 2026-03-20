@@ -151,18 +151,19 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
 
           <div className="space-y-4 md:hidden">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400">
-                AI Control Panel (Compact Mode)
+              <p className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-slate-400">
+                <span className="h-2 w-2 rounded-full bg-[rgb(var(--theme-accent-rgb))] shadow-[0_0_12px_rgb(var(--theme-accent-rgb))] animate-pulse" />
+                Console
               </p>
               <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-slate-300">
-                AI Mode
+                About (Profile)
                 <span className="relative inline-flex items-center">
                   <input
                     type="checkbox"
                     className="peer sr-only"
                     checked={aiMode}
                     onChange={(event) => onAiModeChange(event.target.checked)}
-                    aria-label="Toggle AI mode"
+                    aria-label="Toggle About (Profile) mode"
                   />
                   <span className="h-6 w-12 rounded-full border border-white/10 bg-white/5 transition-all peer-checked:border-emerald-300/50 peer-checked:bg-emerald-500/25" />
                   <span className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-all peer-checked:translate-x-6" />

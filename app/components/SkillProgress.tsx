@@ -7,14 +7,34 @@ import { skillMetrics } from "./skillData";
 
 type SkillProgressProps = {
   embedded?: boolean;
+  activeSkill?: string | null;
+  onSkillSelect?: (key: string | null) => void;
 };
 
-export default function SkillProgress({ embedded }: SkillProgressProps) {
+export default function SkillProgress({
+  embedded,
+  activeSkill,
+  onSkillSelect,
+}: SkillProgressProps) {
   const content = (
     <div className={embedded ? "p-6" : "glow-card neon-border p-6"}>
       <div className="space-y-5">
         {skillMetrics.map((skill) => (
-          <div key={skill.label}>
+          <div
+            key={skill.label}
+            className={`rounded-xl border px-3 py-2 transition ${
+              activeSkill === skill.key
+                ? "border-indigo-300/60 bg-indigo-500/10 shadow-[0_0_16px_rgba(99,102,241,0.35)]"
+                : "border-white/5"
+            }`}
+            onClick={() =>
+              onSkillSelect?.(activeSkill === skill.key ? null : skill.key)
+            }
+            onMouseEnter={() => onSkillSelect?.(skill.key)}
+            onMouseLeave={() => onSkillSelect?.(null)}
+            role="button"
+            tabIndex={0}
+          >
             <div className="mb-2 flex items-center justify-between text-sm text-white">
               <span>{skill.label}</span>
               <span className="text-white">{skill.value}%</span>

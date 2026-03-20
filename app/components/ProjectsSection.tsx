@@ -79,7 +79,7 @@ export default function ProjectsSection() {
                   href={project.launchLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="group mb-4 flex w-full items-center gap-4 rounded-full border border-sky-400/40 bg-black/70 px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-100 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition hover:border-sky-300 hover:shadow-[0_0_28px_rgba(56,189,248,0.55)]"
+                  className="group mb-4 flex w-[92%] items-center gap-4 rounded-full border border-sky-400/40 bg-black/70 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-100 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition hover:border-sky-300 hover:shadow-[0_0_28px_rgba(56,189,248,0.55)] md:w-full"
                 >
                   <span className="relative flex h-16 w-16 items-center justify-center">
                     <span className="absolute -inset-1 rounded-full border border-sky-400/60 shadow-[0_0_18px_rgba(56,189,248,0.35)]" />

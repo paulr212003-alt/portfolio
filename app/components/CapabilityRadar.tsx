@@ -16,15 +16,40 @@ import { skillMetrics } from "./skillData";
 
 type CapabilityRadarProps = {
   embedded?: boolean;
+  activeSkill?: string | null;
 };
 
-export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
+export default function CapabilityRadar({
+  embedded,
+  activeSkill,
+}: CapabilityRadarProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(chartRef, { once: true, amount: 0.3 });
   const radarData = skillMetrics.map((skill) => ({
     subject: skill.axis,
     value: skill.value,
+    key: skill.key,
   }));
+
+  const renderDot = (props: any) => {
+    const { cx, cy, payload } = props as {
+      cx?: number;
+      cy?: number;
+      payload?: { key?: string };
+    };
+    if (cx === undefined || cy === undefined) return null;
+    const isActive = activeSkill && payload?.key === activeSkill;
+    return (
+      <circle
+        cx={cx}
+        cy={cy}
+        r={isActive ? 4 : 2}
+        fill={isActive ? "#ffffff" : "#e2e8f0"}
+        stroke={isActive ? "rgba(99,102,241,0.9)" : "none"}
+        strokeWidth={isActive ? 2 : 0}
+      />
+    );
+  };
 
   const content = (
     <div className={embedded ? "p-6" : "glow-card neon-border p-6"}>
@@ -45,7 +70,7 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
               strokeWidth={1.6}
               fill="rgba(99,102,241,0.25)"
               fillOpacity={0.25}
-              dot={{ r: 2, fill: "#e2e8f0", strokeWidth: 0 }}
+              dot={renderDot}
               isAnimationActive={isInView}
             />
           </RadarChart>

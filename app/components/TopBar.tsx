@@ -97,14 +97,14 @@ export default function TopBar({ aiMode, onAiModeChange }: TopBarProps) {
               </span>
             </div>
             <label className="flex items-center gap-2 uppercase tracking-[0.25em] text-slate-300">
-              AI Mode
+              About (Profile)
               <span className="relative inline-flex items-center">
                 <input
                   type="checkbox"
                   className="peer sr-only"
                   checked={aiMode}
                   onChange={(event) => onAiModeChange(event.target.checked)}
-                  aria-label="Toggle AI mode"
+                  aria-label="Toggle About (Profile) mode"
                 />
                 <span className="h-6 w-12 rounded-full border border-white/10 bg-white/5 transition-all peer-checked:border-emerald-300/50 peer-checked:bg-emerald-500/25" />
                 <span className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-all peer-checked:translate-x-6" />

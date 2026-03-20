@@ -119,20 +119,20 @@ const events: TimelineEvent[] = [
 ];
 
 const scaleDots = Array.from({ length: 32 });
-const vitStartIndex = 11;
-const vitStartPosition = (vitStartIndex / (scaleDots.length - 1)) * 100;
-const vitEndPosition = events.find((event) => event.id === "patent")?.position ?? 74;
-const vitMarkerCount = Math.max(
-  8,
-  Math.round((vitEndPosition - vitStartPosition) / 3)
+const dotPositions = scaleDots.map(
+  (_, index) => (index / (scaleDots.length - 1)) * 100
 );
-const vitMarkers = Array.from({ length: vitMarkerCount }, (_, index) => {
-  if (vitMarkerCount === 1) return vitEndPosition;
-  return (
-    vitStartPosition +
-    (index / (vitMarkerCount - 1)) * (vitEndPosition - vitStartPosition)
-  );
-});
+const vitStartPosition = events.find((event) => event.id === "class-xii")?.position ?? 24;
+const vitEndPosition = events.find((event) => event.id === "patent")?.position ?? 74;
+const vitMarkers = dotPositions
+  .slice(0, -1)
+  .map((position, index) => (position + dotPositions[index + 1]) / 2)
+  .filter((position) => position >= vitStartPosition && position <= vitEndPosition);
+const vitLabelPosition = (() => {
+  const eil = events.find((event) => event.id === "eil")?.position ?? 42;
+  const patent = events.find((event) => event.id === "patent")?.position ?? 74;
+  return (eil + patent) / 2;
+})();
 
 export default function CareerTimeline() {
   const [active, setActive] = useState<TimelineEvent | null>(null);
@@ -263,6 +263,21 @@ export default function CareerTimeline() {
               />
             ))}
           </div>
+          <div className="pointer-events-none absolute left-1/2 top-0 h-full -translate-x-1/2">
+            {vitMarkers.map((position) => (
+              <span
+                key={`vit-mobile-${position}`}
+                className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/80 shadow-[0_0_12px_rgba(251,191,36,0.6)]"
+                style={{ left: "50%", top: `${position}%` }}
+              />
+            ))}
+          </div>
+          <span
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.45em] text-amber-200/30"
+            style={{ top: `${vitLabelPosition}%` }}
+          >
+            VIT
+          </span>
 
           <div className="space-y-10 py-6">
             {events.map((event, index) => {
@@ -288,12 +303,6 @@ export default function CareerTimeline() {
                         {event.year}
                       </p>
                       <p className="mt-1 text-base text-white">{event.label}</p>
-                      {event.id === "rico" ? (
-                        <div className="mt-3 flex items-center justify-end gap-2 text-[12px] uppercase tracking-[0.25em] text-amber-200">
-                          <span className="h-3.5 w-3.5 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.95)]" />
-                          : VIT
-                        </div>
-                      ) : null}
                       {event.certLink ? (
                         <a
                           href={event.certLink}
@@ -316,6 +325,22 @@ export default function CareerTimeline() {
                       ) : null}
                     </div>
                   </motion.button>
+                  {event.id === "rico" ? (
+                    <div
+                      className={`mt-3 w-[calc(50%-20px)] ${
+                        isLeft ? "pr-6 text-right" : "ml-auto pl-6 text-left"
+                      }`}
+                    >
+                      <div
+                        className={`flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-amber-200/70 ${
+                          isLeft ? "justify-end" : "justify-start"
+                        }`}
+                      >
+                        <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
+                        VIT
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               );
             })}

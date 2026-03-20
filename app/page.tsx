@@ -13,7 +13,7 @@ import SkillsDistribution from "./components/SkillsDistribution";
 import TopBar from "./components/TopBar";
 
 export default function Home() {
-  const [aiMode, setAiMode] = useState(true);
+  const [aiMode, setAiMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   const previousAiMode = useRef(aiMode);
 
