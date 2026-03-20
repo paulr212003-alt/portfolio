@@ -7,18 +7,6 @@ import { Phone, Mail, Linkedin, Github, Download } from "lucide-react";
 
 const contacts = [
   {
-    label: "Phone",
-    value: "+91 93152 80887",
-    href: "tel:+919315280887",
-    icon: Phone,
-  },
-  {
-    label: "Email",
-    value: "paul.r212003@gmail.com",
-    href: "mailto:paul.r212003@gmail.com",
-    icon: Mail,
-  },
-  {
     label: "LinkedIn",
     value: "linkedin.com/in/rishabh-paul",
     href: "https://www.linkedin.com/in/rishabh-paul/",
@@ -64,16 +52,6 @@ export default function ContactSection() {
               <Mail size={16} />
               Email
             </motion.a>
-            <motion.a
-              href="/resume.pdf"
-              download
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 md:hover:shadow-[0_0_18px_rgba(148,163,184,0.35)] active:scale-[0.98]"
-            >
-              <Download size={16} />
-              Download Resume
-            </motion.a>
           </div>
         </div>
 
@@ -88,13 +66,13 @@ export default function ContactSection() {
                 rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ duration: 0.25 }}
-                className="glow-card neon-border group p-5 hover:shadow-[0_0_28px_rgba(99,102,241,0.35)]"
+                className="glow-card neon-border group flex items-center justify-center p-5 text-center hover:shadow-[0_0_28px_rgba(99,102,241,0.35)] md:justify-start md:text-left"
               >
                 <div className="flex items-center gap-3">
                   <span className="rounded-full border border-white/10 bg-white/5 p-2 text-indigo-200">
                     <Icon size={16} />
                   </span>
-                  <div>
+                  <div className="hidden md:block">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       {item.label}
                     </p>
@@ -105,6 +83,25 @@ export default function ContactSection() {
             );
           })}
         </div>
+      </div>
+      <div className="mt-6">
+        <motion.a
+          href="/resume.pdf"
+          download
+          whileHover={{ y: -6, scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="glow-card neon-border flex items-center justify-center gap-3 p-5 text-center hover:shadow-[0_0_28px_rgba(99,102,241,0.35)] md:justify-start md:text-left"
+        >
+          <span className="rounded-full border border-white/10 bg-white/5 p-2 text-indigo-200">
+            <Download size={16} />
+          </span>
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+              Resume
+            </p>
+            <p className="mt-1 text-sm text-white">Download Resume</p>
+          </div>
+        </motion.a>
       </div>
     </AnimatedSection>
   );

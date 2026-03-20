@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeader from "./SectionHeader";
-
-const strengths = [
-  { label: "Machine Learning", value: 90 },
-  { label: "Deep Learning", value: 85 },
-  { label: "Backend Development", value: 78 },
-  { label: "Data Analytics", value: 82 },
-];
+import { skillMetrics } from "./skillData";
 
 type SkillProgressProps = {
   embedded?: boolean;
@@ -19,11 +13,11 @@ export default function SkillProgress({ embedded }: SkillProgressProps) {
   const content = (
     <div className={embedded ? "p-6" : "glow-card neon-border p-6"}>
       <div className="space-y-5">
-        {strengths.map((skill) => (
+        {skillMetrics.map((skill) => (
           <div key={skill.label}>
-            <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
+            <div className="mb-2 flex items-center justify-between text-sm text-white">
               <span>{skill.label}</span>
-              <span className="text-indigo-200">{skill.value}%</span>
+              <span className="text-white">{skill.value}%</span>
             </div>
             <div className="h-3 w-full rounded-full bg-white/5">
               <motion.div

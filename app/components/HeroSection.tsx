@@ -13,11 +13,16 @@ const stats = [
   },
 ];
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  aiMode: boolean;
+  onAiModeChange: (value: boolean) => void;
+};
+
+export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps) {
   const [terminalMode, setTerminalMode] = useState(false);
 
   return (
-    <section className="relative overflow-hidden pb-12 pt-16 md:pb-16 md:pt-20">
+    <section className="relative overflow-hidden pb-10 pt-12 md:pb-16 md:pt-20">
       <div className="relative z-10 grid gap-10 md:gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="relative">
           <div className="relative z-10">
@@ -27,15 +32,15 @@ export default function HeroSection() {
             <h1 className="mt-4 text-3xl font-semibold text-white sm:text-4xl md:text-6xl font-display glow-text">
               Rishabh Paul
             </h1>
-            <h2 className="mt-4 text-lg text-[rgb(var(--theme-accent-rgb)_/_0.85)] sm:text-xl md:text-2xl">
+            <h2 className="mt-4 text-base text-[rgb(var(--theme-accent-rgb)_/_0.85)] sm:text-lg md:text-2xl">
               AI / Machine Learning Engineer | Automation & Manufacturing Analytics
             </h2>
-            <p className="mt-6 max-w-xl text-base text-slate-300 md:text-lg">
+            <p className="mt-5 max-w-xl text-sm text-slate-300 sm:text-base md:mt-6 md:text-lg">
               Building intelligent systems using machine learning, industrial
               analytics, and AI-driven automation.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4 md:mt-10">
+            <div className="mt-6 flex flex-wrap gap-2 sm:gap-3 md:mt-10 md:gap-4">
               <a
                 href="#projects"
                 className="glow-box inline-flex h-11 items-center gap-2 rounded-full border px-6 text-sm font-semibold text-white transition hover:border-white/40 md:hover:shadow-[0_0_18px_rgba(99,102,241,0.35)] active:scale-[0.98]"
@@ -116,7 +121,7 @@ export default function HeroSection() {
               {stats.map((item) => (
                 <div
                   key={item.label}
-                  className="flex min-h-[110px] flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-center"
+                  className="flex min-h-[100px] flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-center"
                 >
                   <p className="text-xs tracking-[0.2em] text-slate-400">
                     {item.label}
@@ -144,22 +149,25 @@ export default function HeroSection() {
             ) : null}
           </div>
 
-          <div className="md:hidden space-y-4">
+          <div className="space-y-4 md:hidden">
             <div className="flex items-center justify-between gap-3">
               <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400">
                 AI Control Panel (Compact Mode)
               </p>
-              <button
-                type="button"
-                onClick={() => setTerminalMode((prev) => !prev)}
-                className="inline-flex h-9 items-center gap-2 rounded-full border px-3 text-[10px] uppercase tracking-[0.2em] text-indigo-100 transition hover:border-white/40 active:scale-[0.98]"
-                style={{
-                  borderColor: "rgb(var(--theme-accent-2-rgb) / 0.4)",
-                  background: "rgb(var(--theme-accent-2-rgb) / 0.12)",
-                }}
-              >
-                AI Mode {terminalMode ? "On" : "Off"}
-              </button>
+              <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-slate-300">
+                AI Mode
+                <span className="relative inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    className="peer sr-only"
+                    checked={aiMode}
+                    onChange={(event) => onAiModeChange(event.target.checked)}
+                    aria-label="Toggle AI mode"
+                  />
+                  <span className="h-6 w-12 rounded-full border border-white/10 bg-white/5 transition-all peer-checked:border-emerald-300/50 peer-checked:bg-emerald-500/25" />
+                  <span className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-all peer-checked:translate-x-6" />
+                </span>
+              </label>
             </div>
             <div className="grid grid-cols-3 gap-2 text-[9px] uppercase tracking-[0.25em] text-slate-400">
               {"SYS NAV AUTO".split(" ").map((item) => (
@@ -173,12 +181,12 @@ export default function HeroSection() {
             </div>
             <div
               className={`rounded-xl border px-4 py-4 text-xs transition ${
-                terminalMode
+                aiMode
                   ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.35)]"
                   : "border-white/10 bg-white/5 text-slate-300"
               }`}
             >
-              {terminalMode ? (
+              {aiMode ? (
                 <div className="space-y-2">
                   <p className="text-[10px] uppercase tracking-[0.35em] text-emerald-200 animate-pulse">
                     AI ACTIVE

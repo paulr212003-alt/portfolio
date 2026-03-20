@@ -153,8 +153,8 @@ export default function CareerTimeline() {
     <AnimatedSection id="timeline" className="py-12 md:py-16">
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
-      <div className="relative mt-10 hidden md:block">
-        <div className="relative mx-auto min-h-[300px] max-w-6xl px-6">
+        <div className="relative mt-10 hidden md:block">
+          <div className="relative mx-auto min-h-[300px] max-w-6xl px-6 py-6">
           <div className="absolute left-0 right-0 top-1/2 flex -translate-y-1/2 items-center justify-between">
             {scaleDots.map((_, index) => (
               <span
@@ -220,7 +220,7 @@ export default function CareerTimeline() {
                           href={event.certLink}
                           target="_blank"
                           rel="noreferrer"
-                          className="mt-2 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
+                          className="mt-3 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
                         >
                           {event.certLabel ?? "View Certificate"}
                         </a>
@@ -246,8 +246,8 @@ export default function CareerTimeline() {
         </div>
       </div>
 
-      <div className="mt-10 space-y-8 md:hidden">
-        <div className="relative pl-6">
+        <div className="mt-10 space-y-10 md:hidden">
+          <div className="relative pl-6 pr-2 py-6">
           <div className="absolute left-1 top-0 flex h-full flex-col items-center justify-between">
             {scaleDots.map((_, index) => (
               <span
@@ -297,7 +297,7 @@ export default function CareerTimeline() {
                         href={event.certLink}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-2 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
+                      className="mt-3 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
                       >
                         {event.certLabel ?? "View Certificate"}
                       </a>

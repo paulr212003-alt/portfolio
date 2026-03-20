@@ -52,9 +52,7 @@ export default function PatentShowcase() {
           >
             <span className="relative inline-flex items-center">
               Patent
-              <span className="absolute -right-2 -top-1 text-[9px] text-indigo-200">
-                ↗
-              </span>
+              <span className="absolute -right-2 -top-1 text-[9px] text-indigo-200">{"\u2197"}</span>
             </span>
           </button>
         </div>
@@ -103,3 +101,5 @@ export default function PatentShowcase() {
     </AnimatedSection>
   );
 }
+
+

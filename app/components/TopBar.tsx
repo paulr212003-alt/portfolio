@@ -28,10 +28,14 @@ const formatTime = (date: Date) => {
   return `${datePart} | ${timePart}`;
 };
 
-export default function TopBar() {
+type TopBarProps = {
+  aiMode: boolean;
+  onAiModeChange: (value: boolean) => void;
+};
+
+export default function TopBar({ aiMode, onAiModeChange }: TopBarProps) {
   const [time, setTime] = useState("");
   const [theme, setTheme] = useState("obsidian-core");
-  const [aiMode, setAiMode] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -40,10 +44,6 @@ export default function TopBar() {
     if (storedTheme) {
       setTheme(storedTheme);
     }
-    const storedAi = window.localStorage.getItem("portfolio-ai");
-    if (storedAi) {
-      setAiMode(storedAi === "on");
-    }
   }, []);
 
   useEffect(() => {
@@ -51,12 +51,6 @@ export default function TopBar() {
     root.dataset.theme = theme;
     window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.dataset.ai = aiMode ? "on" : "off";
-    window.localStorage.setItem("portfolio-ai", aiMode ? "on" : "off");
-  }, [aiMode]);
 
   useEffect(() => {
     setTime(formatTime(new Date()));
@@ -82,7 +76,7 @@ export default function TopBar() {
           </div>
 
           <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-slate-300 sm:text-xs">
-            <span className="ai-blink ai-animate text-blue-300">●</span>
+            <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
             Rishabh Paul Portfolio
           </div>
 
@@ -94,7 +88,7 @@ export default function TopBar() {
               </span>
             </div>
             <div className="flex items-center gap-2 text-[10px] sm:text-xs">
-              <span className="ai-blink ai-animate text-blue-300">●</span>
+              <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
               <span
                 className="uppercase tracking-[0.25em] text-slate-300"
                 suppressHydrationWarning
@@ -102,14 +96,20 @@ export default function TopBar() {
                 {mounted && time ? time : "Loading..."}
               </span>
             </div>
-            <button
-              type="button"
-              onClick={() => setAiMode((prev) => !prev)}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-2 uppercase tracking-[0.25em] text-slate-200 transition hover:border-white/20"
-              aria-pressed={aiMode}
-            >
-              AI Mode {aiMode ? "On" : "Off"}
-            </button>
+            <label className="flex items-center gap-2 uppercase tracking-[0.25em] text-slate-300">
+              AI Mode
+              <span className="relative inline-flex items-center">
+                <input
+                  type="checkbox"
+                  className="peer sr-only"
+                  checked={aiMode}
+                  onChange={(event) => onAiModeChange(event.target.checked)}
+                  aria-label="Toggle AI mode"
+                />
+                <span className="h-6 w-12 rounded-full border border-white/10 bg-white/5 transition-all peer-checked:border-emerald-300/50 peer-checked:bg-emerald-500/25" />
+                <span className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-all peer-checked:translate-x-6" />
+              </span>
+            </label>
             <label className="flex items-center gap-2 uppercase tracking-[0.2em] text-slate-300">
               Theme
               <select
@@ -139,7 +139,7 @@ export default function TopBar() {
                 </div>
               </div>
               <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-slate-300">
-                <span className="ai-blink ai-animate text-blue-300">●</span>
+                <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
                 <span suppressHydrationWarning>
                   {mounted && time ? time : "Loading..."}
                 </span>
@@ -167,3 +167,4 @@ export default function TopBar() {
     </div>
   );
 }
+
