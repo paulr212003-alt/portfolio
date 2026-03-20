@@ -100,11 +100,18 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
       | "mathematical";
   }) => {
     if (!payload?.value) return null;
+    const anchor =
+      textAnchor === "start" ||
+      textAnchor === "middle" ||
+      textAnchor === "end" ||
+      textAnchor === "inherit"
+        ? textAnchor
+        : "middle";
     return (
       <text
         x={x}
         y={y}
-        textAnchor={textAnchor}
+        textAnchor={anchor}
         dominantBaseline={dominantBaseline}
         fill={subjectColors[payload.value] ?? "#e2e8f0"}
         fontSize={11}
