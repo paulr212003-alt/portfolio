@@ -87,10 +87,6 @@ export default function SkillsDistribution() {
                         borderRadius: "12px",
                         color: "#e2e8f0",
                       }}
-                      formatter={(value: number | string): [string, string] => [
-                        `${value}%`,
-                        "Focus",
-                      ]}
                     />
                   </PieChart>
                 </ResponsiveContainer>
