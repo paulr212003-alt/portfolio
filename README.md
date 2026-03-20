@@ -15,3 +15,6 @@ Open `http://localhost:3000` to view the site.
 ```bash
 npm run build
 ```
+
+## Deployment
+Last updated: 2026-03-20
