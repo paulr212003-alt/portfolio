@@ -79,26 +79,20 @@ type CapabilityRadarProps = {
 export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(chartRef, { once: true, amount: 0.3 });
-  const angleTick = ({
-    payload,
-    x,
-    y,
-    textAnchor,
-    dominantBaseline,
-  }: {
-    payload?: { value?: string };
-    x?: number;
-    y?: number;
-    textAnchor?: "start" | "middle" | "end" | "inherit";
-    dominantBaseline?:
-      | "auto"
-      | "alphabetic"
-      | "central"
-      | "hanging"
-      | "middle"
-      | "ideographic"
-      | "mathematical";
-  }) => {
+  const angleTick = (props: unknown) => {
+    const {
+      payload,
+      x,
+      y,
+      textAnchor,
+      dominantBaseline,
+    } = props as {
+      payload?: { value?: string };
+      x?: number | string;
+      y?: number | string;
+      textAnchor?: string;
+      dominantBaseline?: string;
+    };
     if (!payload?.value) return null;
     const anchor =
       textAnchor === "start" ||
