@@ -108,8 +108,8 @@ export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
 
   const content = (
     <div className={embedded ? "p-6" : "glow-card neon-border p-6"}>
-      <div ref={chartRef} className="h-80 w-full">
-        <ResponsiveContainer width="100%" height="100%">
+      <div ref={chartRef} className="h-80 w-full min-w-0">
+        <ResponsiveContainer width="100%" height="100%" minHeight={280} minWidth={0}>
           <RadarChart data={data} outerRadius="78%">
             <PolarGrid stroke="rgba(148,163,184,0.35)" />
             <PolarAngleAxis

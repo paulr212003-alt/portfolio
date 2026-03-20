@@ -60,8 +60,8 @@ export default function SkillsDistribution() {
               </span>
             </div>
             <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-64 w-full min-w-0">
+                <ResponsiveContainer width="100%" height="100%" minHeight={240} minWidth={0}>
                   <PieChart>
                     <Pie
                       data={block.data}

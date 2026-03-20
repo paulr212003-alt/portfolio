@@ -34,8 +34,8 @@ export default function EducationAnalytics() {
             % / CGPA
           </span>
         </div>
-        <div ref={chartRef} className="h-72 w-full">
-          <ResponsiveContainer width="100%" height="100%">
+        <div ref={chartRef} className="h-72 w-full min-w-0">
+          <ResponsiveContainer width="100%" height="100%" minHeight={240} minWidth={0}>
             <BarChart
               data={data}
               margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
@@ -104,7 +104,7 @@ export default function EducationAnalytics() {
           </ResponsiveContainer>
         </div>
         <p className="mt-4 text-sm text-slate-300">
-          B.Tech Computer Science – VIT Vellore (8.94 CGPA)
+          B.Tech Computer Science - VIT Vellore (8.94 CGPA)
         </p>
       </div>
     </AnimatedSection>
