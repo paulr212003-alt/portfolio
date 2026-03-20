@@ -72,11 +72,13 @@ export default function ContactSection() {
                   <span className="rounded-full border border-white/10 bg-white/5 p-2 text-indigo-200">
                     <Icon size={16} />
                   </span>
-                  <div className="hidden md:block">
+                  <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       {item.label}
                     </p>
-                    <p className="mt-1 text-sm text-white">{item.value}</p>
+                    <p className="mt-1 hidden text-sm text-white md:block">
+                      {item.value}
+                    </p>
                   </div>
                 </div>
               </motion.a>

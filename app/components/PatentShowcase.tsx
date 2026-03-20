@@ -9,8 +9,8 @@ import SectionHeader from "./SectionHeader";
 export default function PatentShowcase() {
   const [openPdf, setOpenPdf] = useState(false);
   const openPatentImages = () => {
-    window.open("/patent-1.pdf", "_blank", "noopener,noreferrer");
-    window.open("/patent-2.pdf", "_blank", "noopener,noreferrer");
+    window.open("/patent-1.png", "_blank", "noopener,noreferrer");
+    window.open("/patent-2.png", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -32,7 +32,7 @@ export default function PatentShowcase() {
         </div>
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-300">
           <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-            Issued by: Office of Controller General of Patents-(Government of India)
+            Issued by: Office of Controller General of Patents, Ministry of Commerce & Industry(Government of India)
           </span>
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-4">

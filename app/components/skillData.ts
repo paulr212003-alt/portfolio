@@ -17,25 +17,25 @@ export const skillMetrics: SkillMetric[] = [
   {
     key: "deep-learning",
     label: "Deep Learning",
-    axis: "Deep Learning",
+    axis: "DL",
     value: 85,
   },
   {
     key: "operating-systems",
     label: "Operating Systems",
     axis: "OS",
-    value: 85,
+    value: 80,
   },
   {
     key: "oops",
     label: "OOPS (C++)",
     axis: "OOPS (C++)",
-    value: 80,
+    value: 85,
   },
   {
     key: "sql",
     label: "SQL",
     axis: "SQL",
-    value: 80,
+    value: 70,
   },
 ];

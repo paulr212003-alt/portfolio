@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeader from "./SectionHeader";
 
@@ -43,6 +43,7 @@ const COLORS = [
 export default function SkillsDistribution() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const [activeTechIndex, setActiveTechIndex] = useState<number | null>(null);
 
   return (
     <AnimatedSection id="skills" className="py-12 md:py-16">
@@ -68,11 +69,22 @@ export default function SkillsDistribution() {
                     paddingAngle={4}
                     stroke="rgba(0,0,0,0)"
                     isAnimationActive={isInView}
+                    activeIndex={activeTechIndex ?? undefined}
+                    onMouseEnter={(_, index) => setActiveTechIndex(index)}
+                    onMouseLeave={() => setActiveTechIndex(null)}
+                    onClick={(_, index) => setActiveTechIndex(index)}
                   >
                     {technicalSkills.map((entry, index) => (
                       <Cell
                         key={`cell-${entry.name}`}
                         fill={COLORS[index % COLORS.length]}
+                        fillOpacity={
+                          activeTechIndex !== null && activeTechIndex !== index
+                            ? 0.35
+                            : 1
+                        }
+                        stroke={activeTechIndex === index ? "#ffffff" : "transparent"}
+                        strokeWidth={activeTechIndex === index ? 2 : 0}
                       />
                     ))}
                   </Pie>

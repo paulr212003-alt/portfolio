@@ -137,6 +137,7 @@ const vitMarkers = Array.from({ length: vitMarkerCount }, (_, index) => {
 export default function CareerTimeline() {
   const [active, setActive] = useState<TimelineEvent | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [mobileExpandedId, setMobileExpandedId] = useState<string | null>(null);
 
   const openPopup = (event: TimelineEvent) => {
     if (!event.popup) return;
@@ -147,6 +148,11 @@ export default function CareerTimeline() {
   const closePopup = () => {
     setActive(null);
     setShowDetails(false);
+  };
+
+  const toggleMobileDetails = (event: TimelineEvent) => {
+    if (!event.popup) return;
+    setMobileExpandedId((prev) => (prev === event.id ? null : event.id));
   };
 
   return (
@@ -246,9 +252,10 @@ export default function CareerTimeline() {
         </div>
       </div>
 
-        <div className="mt-10 space-y-10 md:hidden">
-          <div className="relative pl-6 pr-2 py-6">
-          <div className="absolute left-1 top-0 flex h-full flex-col items-center justify-between">
+      <div className="mt-10 md:hidden">
+        <div className="relative mx-auto max-w-md px-4">
+          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-blue-400/20" />
+          <div className="pointer-events-none absolute left-1/2 top-0 flex h-full -translate-x-1/2 flex-col items-center justify-between">
             {scaleDots.map((_, index) => (
               <span
                 key={`dot-mobile-${index}`}
@@ -256,59 +263,64 @@ export default function CareerTimeline() {
               />
             ))}
           </div>
-          <div className="pointer-events-none absolute left-1 top-0 h-full">
-            {vitMarkers.map((position) => (
-              <span
-                key={`vit-mobile-${position}`}
-                className="absolute h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.9)]"
-                style={{ top: `${position}%` }}
-              />
-            ))}
-          </div>
 
-          {events.map((event) => {
-            const isInteractive = Boolean(event.popup);
-            return (
-              <div key={event.id} className="relative pl-8">
-                <motion.button
-                  type="button"
-                  onClick={() => openPopup(event)}
-                  whileHover={isInteractive ? { scale: 1.04 } : undefined}
-                  className={`relative flex items-start gap-3 text-left ${
-                    isInteractive ? "cursor-pointer" : "cursor-default"
-                  }`}
-                >
-                  <span className="mt-1 h-3 w-3 rounded-full bg-blue-400 shadow-[0_0_14px_rgba(59,130,246,0.9)]" />
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.25em] text-blue-200">
-                      {event.year}
-                    </p>
-                    <p className="mt-1 text-sm text-slate-200">
-                      {event.label}
-                    </p>
-                    {event.id === "rico" ? (
-                      <div className="mt-2 flex items-center gap-2 text-[12px] uppercase tracking-[0.25em] text-amber-200">
-                        <span className="h-3.5 w-3.5 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.95)]" />
-                        : VIT
-                      </div>
-                    ) : null}
-                    {event.certLink ? (
-                      <a
-                        href={event.certLink}
-                        target="_blank"
-                        rel="noreferrer"
-                      className="mt-3 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
-                      >
-                        {event.certLabel ?? "View Certificate"}
-                      </a>
-                    ) : null}
-                  </div>
-                </motion.button>
-              </div>
-            );
-          })}
+          <div className="space-y-10 py-6">
+            {events.map((event, index) => {
+              const isInteractive = Boolean(event.popup);
+              const isLeft = index % 2 === 0;
+              const isExpanded = mobileExpandedId === event.id;
+
+              return (
+                <div key={event.id} className="relative flex items-start">
+                  <span className="absolute left-1/2 top-4 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-400 shadow-[0_0_16px_rgba(59,130,246,0.9)]" />
+                  <motion.button
+                    type="button"
+                    onClick={() => toggleMobileDetails(event)}
+                    whileTap={isInteractive ? { scale: 0.98 } : undefined}
+                    className={`relative w-[calc(50%-20px)] ${
+                      isLeft
+                        ? "pr-6 text-right"
+                        : "ml-auto pl-6 text-left"
+                    } ${isInteractive ? "cursor-pointer" : "cursor-default"}`}
+                  >
+                    <div className="glow-card neon-border rounded-2xl border border-white/10 bg-black/75 px-4 py-3 text-slate-200 shadow-[0_0_18px_rgba(59,130,246,0.35)]">
+                      <p className="text-xs uppercase tracking-[0.25em] text-blue-200">
+                        {event.year}
+                      </p>
+                      <p className="mt-1 text-base text-white">{event.label}</p>
+                      {event.id === "rico" ? (
+                        <div className="mt-3 flex items-center justify-end gap-2 text-[12px] uppercase tracking-[0.25em] text-amber-200">
+                          <span className="h-3.5 w-3.5 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.95)]" />
+                          : VIT
+                        </div>
+                      ) : null}
+                      {event.certLink ? (
+                        <a
+                          href={event.certLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-3 inline-flex items-center rounded-lg border border-blue-400/40 bg-blue-500/10 px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
+                        >
+                          {event.certLabel ?? "View Certificate"}
+                        </a>
+                      ) : null}
+                      {isInteractive && event.popup?.details && isExpanded ? (
+                        <div className="mt-4 space-y-2 text-xs text-slate-300">
+                          {event.popup.details.map((detail) => (
+                            <div key={detail} className="flex items-start gap-2">
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-400" />
+                              <span>{detail}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </motion.button>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        {/* Legend moved under Rico label */}
       </div>
 
       <AnimatePresence>

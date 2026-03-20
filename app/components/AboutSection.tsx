@@ -14,7 +14,7 @@ export default function AboutSection() {
         className="glow-card neon-border relative mt-6 overflow-hidden bg-gradient-to-br from-white/5 via-white/0 to-indigo-500/10 p-6 text-slate-200 shadow-[0_0_30px_rgba(99,102,241,0.18)] md:mt-8 md:p-8"
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.12),_transparent_60%)]" />
-        <div className="relative mx-auto max-w-[90%] space-y-4 text-center text-sm leading-7 md:mx-0 md:max-w-none md:text-left md:text-base">
+        <div className="relative mx-auto max-w-[90%] space-y-4 text-justify text-sm leading-7 md:mx-0 md:max-w-none md:text-left md:text-base">
           <p>
             Hi, I&apos;m Rishabh, an AI/ML engineer working as a Graduate
             Engineer Trainee (Automation &amp; Robotics) at Rico Auto Industries.I hold a published patent on &quot;Heart Disease Prediction using

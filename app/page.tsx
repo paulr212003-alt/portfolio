@@ -1,6 +1,6 @@
  "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AboutSection from "./components/AboutSection";
 import CareerTimeline from "./components/CareerTimeline";
 import ContactSection from "./components/ContactSection";
@@ -15,6 +15,7 @@ import TopBar from "./components/TopBar";
 export default function Home() {
   const [aiMode, setAiMode] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const previousAiMode = useRef(aiMode);
 
   useEffect(() => {
     setMounted(true);
@@ -29,6 +30,24 @@ export default function Home() {
     const root = document.documentElement;
     root.dataset.ai = aiMode ? "on" : "off";
     window.localStorage.setItem("portfolio-ai", aiMode ? "on" : "off");
+  }, [aiMode, mounted]);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const wasAiMode = previousAiMode.current;
+    if (!wasAiMode && aiMode && window.innerWidth < 768) {
+      const aboutSection = document.getElementById("about");
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.setTimeout(() => {
+          window.scrollBy({
+            top: -window.innerHeight * 0.12,
+            behavior: "smooth",
+          });
+        }, 200);
+      }
+    }
+    previousAiMode.current = aiMode;
   }, [aiMode, mounted]);
 
   return (
@@ -61,8 +80,14 @@ export default function Home() {
         </div>
         <CareerTimeline />
         <ProjectsSection />
-        <PatentShowcase />
-        <EducationAnalytics />
+        <div className="md:hidden">
+          <EducationAnalytics />
+          <PatentShowcase />
+        </div>
+        <div className="hidden md:block">
+          <PatentShowcase />
+          <EducationAnalytics />
+        </div>
         <SkillsDistribution />
         <SkillRadarSection />
         <ContactSection />
