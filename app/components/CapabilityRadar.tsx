@@ -79,70 +79,24 @@ type CapabilityRadarProps = {
 export default function CapabilityRadar({ embedded }: CapabilityRadarProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(chartRef, { once: true, amount: 0.3 });
-  type AllowedBaseline =
-    | "auto"
-    | "alphabetic"
-    | "central"
-    | "hanging"
-    | "middle"
-    | "ideographic"
-    | "mathematical"
-    | "inherit"
-    | "text-after-edge"
-    | "text-before-edge"
-    | "use-script"
-    | "no-change"
-    | "reset-size";
-  const allowedBaselines: ReadonlyArray<AllowedBaseline> = [
-    "auto",
-    "alphabetic",
-    "central",
-    "hanging",
-    "middle",
-    "ideographic",
-    "mathematical",
-    "inherit",
-    "text-after-edge",
-    "text-before-edge",
-    "use-script",
-    "no-change",
-    "reset-size",
-  ];
-  const isAllowedBaseline = (value: unknown): value is AllowedBaseline =>
-    typeof value === "string" &&
-    allowedBaselines.includes(value as AllowedBaseline);
-
-  const angleTick = (props: unknown) => {
-    const {
-      payload,
-      x,
-      y,
-      textAnchor,
-      dominantBaseline,
-    } = props as {
+  const angleTick = (props: any) => {
+    const { payload, x, y, textAnchor } = props as {
       payload?: { value?: string };
       x?: number | string;
       y?: number | string;
       textAnchor?: string;
-      dominantBaseline?: string;
     };
     if (!payload?.value) return null;
     const anchor =
-      textAnchor === "start" ||
-      textAnchor === "middle" ||
-      textAnchor === "end" ||
-      textAnchor === "inherit"
+      textAnchor === "start" || textAnchor === "middle" || textAnchor === "end"
         ? textAnchor
         : "middle";
-    const baseline = isAllowedBaseline(dominantBaseline)
-      ? dominantBaseline
-      : "middle";
     return (
       <text
         x={x}
         y={y}
         textAnchor={anchor}
-        dominantBaseline={baseline}
+        dominantBaseline="middle"
         fill={subjectColors[payload.value] ?? "#e2e8f0"}
         fontSize={11}
       >
