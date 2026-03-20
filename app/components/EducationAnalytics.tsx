@@ -72,15 +72,6 @@ export default function EducationAnalytics() {
                   borderRadius: "12px",
                   color: "#e2e8f0",
                 }}
-                formatter={(
-                  value: number | string,
-                  name: string | number
-                ): [string, string] => {
-                  if (name === "CGPA") {
-                    return [`${value} CGPA`, "CGPA"];
-                  }
-                  return [`${value}%`, "Percentage"];
-                }}
               />
               <Bar
                 yAxisId="percent"
