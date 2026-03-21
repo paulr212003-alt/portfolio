@@ -32,7 +32,7 @@ const projects = [
     stack: ["Node.js", "Express", "MongoDB Atlas", "Render"],
     highlight: "Deployed on Render with analytics dashboards.",
     link: "https://github.com/paulr212003-alt/rico-visitor-portal",
-    launchLink: "https://rico-visitor.onrender.com",
+    launchLink: "https://crash-pearl-three.vercel.app/index.html",
   },
 ];
 
