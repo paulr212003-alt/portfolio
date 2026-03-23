@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeader from "./SectionHeader";
-import { Phone, Mail, Linkedin, Github, Download } from "lucide-react";
+import { Phone, Mail, Linkedin, Github, Download, Instagram } from "lucide-react";
 
 const contacts = [
   {
@@ -54,6 +54,26 @@ export default function ContactSection() {
             </motion.a>
           </div>
         </div>
+
+        <motion.a
+          href="https://www.instagram.com/paul_rags25"
+          target="_blank"
+          rel="noreferrer"
+          whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ duration: 0.25 }}
+          className="glow-card neon-border group flex items-center justify-center p-5 text-center hover:shadow-[0_0_28px_rgba(99,102,241,0.35)] md:hidden"
+        >
+          <div className="flex items-center gap-3">
+            <span className="rounded-full border border-white/10 bg-white/5 p-2 text-indigo-200">
+              <Instagram size={16} />
+            </span>
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+                Instagram
+              </p>
+            </div>
+          </div>
+        </motion.a>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {contacts.map((item) => {
