@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, Download, Mail, Terminal, Linkedin } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const stats = [
@@ -29,9 +30,21 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
             <p className="text-sm uppercase tracking-[0.4em] text-[rgb(var(--theme-accent-2-rgb)_/_0.9)]">
               Portfolio
             </p>
-            <h1 className="mt-4 text-3xl font-semibold text-white sm:text-4xl md:text-6xl font-display glow-text">
-              Rishabh Paul
-            </h1>
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/15 shadow-[0_0_16px_var(--theme-glow)] sm:h-20 sm:w-20">
+                <Image
+                  src="/profile.jpg"
+                  alt="Rishabh Paul"
+                  fill
+                  sizes="80px"
+                  priority
+                  className="object-cover"
+                />
+              </div>
+              <h1 className="text-3xl font-semibold text-white sm:text-4xl md:text-6xl font-display glow-text">
+                Rishabh Paul
+              </h1>
+            </div>
             <h2 className="mt-4 text-base text-[rgb(var(--theme-accent-rgb)_/_0.85)] sm:text-lg md:text-2xl">
               AI / Machine Learning Engineer | Automation & Manufacturing Analytics
             </h2>

@@ -3,16 +3,22 @@
 import { useEffect, useState } from "react";
 
 const themes = [
-  { label: "Classic", value: "classic" },
-  { label: "Obsidian Core", value: "obsidian-core" },
-  { label: "Nebula Noir", value: "nebula-noir" },
-  { label: "Cyber Azure", value: "cyber-azure" },
-  { label: "Quantum Indigo", value: "quantum-indigo" },
-  { label: "Solar Ember", value: "solar-ember" },
-  { label: "Emerald Pulse", value: "emerald-pulse" },
-  { label: "Graphite Frost", value: "graphite-frost" },
-  { label: "Aurora Flux", value: "aurora-flux" },
-  { label: "Sandstone Calm", value: "sandstone-calm" },
+  { label: "Obsidian Ivory", value: "obsidian-ivory" },
+  { label: "Molten Umber", value: "molten-umber" },
+  { label: "Verdant Nocturne", value: "verdant-nocturne" },
+  { label: "Imperial Amethyst", value: "imperial-amethyst" },
+  { label: "Abyssal Azure", value: "abyssal-azure" },
+  { label: "Crimson Noir", value: "crimson-noir" },
+  { label: "Gilded Onyx", value: "gilded-onyx" },
+];
+
+const navLinks = [
+  { label: "Projects", href: "#projects" },
+  { label: "Timeline", href: "#timeline" },
+  { label: "Academics", href: "#education" },
+  { label: "Publications", href: "#research" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const formatTime = (date: Date) => {
@@ -30,7 +36,8 @@ const formatTime = (date: Date) => {
 
 export default function TopBar() {
   const [time, setTime] = useState("");
-  const [theme, setTheme] = useState("classic");
+  const [theme, setTheme] = useState("obsidian-ivory");
+  const [mode, setMode] = useState<"dark" | "light">("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -40,7 +47,8 @@ export default function TopBar() {
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.theme = theme;
-  }, [theme]);
+    root.dataset.mode = mode;
+  }, [theme, mode]);
 
   useEffect(() => {
     setTime(formatTime(new Date()));
@@ -50,84 +58,61 @@ export default function TopBar() {
     return () => window.clearInterval(interval);
   }, []);
 
+  const toggleMode = () => {
+    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
     <div className="sticky top-0 z-40 w-full">
-      <div className="cyber-panel neon-border relative border-b border-white/5 px-3 py-2 backdrop-blur-2xl md:px-4 md:py-3">
-        <div className="ai-shimmer ai-animate pointer-events-none absolute left-0 right-0 top-0 h-px bg-[linear-gradient(90deg,_transparent,_rgb(var(--theme-accent-rgb)_/_0.6),_transparent)]" />
+      <div className="cyber-panel neon-border relative border-b border-white/5 px-3 py-2 backdrop-blur-2xl md:px-5 md:py-3">
+        <div className="ai-shimmer ai-animate pointer-events-none absolute left-0 right-0 top-0 h-px bg-[linear-gradient(90deg,_transparent,_rgb(var(--theme-accent-rgb)_/_0.5),_transparent)]" />
         <div className="mx-auto max-w-6xl">
-          <div className="hidden items-center justify-between gap-4 md:flex">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]">
-              RP
-            </div>
-            <span className="hidden text-xs uppercase tracking-[0.3em] text-slate-400 sm:inline">
-              Control Node
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-slate-300 sm:text-xs">
-            <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
-            Rishabh Paul Portfolio
-          </div>
-
-          <div className="flex items-center justify-end gap-5 text-xs text-slate-200">
-            <div className="flex items-center gap-2">
-              <span className="status-dot pulse-slow ai-animate" />
-              <span className="uppercase tracking-[0.25em] text-emerald-200">
-                Online
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs">
-              <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
-              <span
-                className="uppercase tracking-[0.25em] text-slate-300"
-                suppressHydrationWarning
-              >
-                {mounted && time ? time : "Loading..."}
-              </span>
-            </div>
-            <label className="flex items-center gap-2 uppercase tracking-[0.2em] text-slate-300">
-              Theme
-              <select
-                value={theme}
-                onChange={(event) => setTheme(event.target.value)}
-                className="rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-xs text-slate-200 shadow-[0_0_12px_rgba(99,102,241,0.25)] transition hover:border-white/20"
-              >
-                {themes.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          </div>
-
-          <div className="flex flex-col gap-2 md:hidden">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[10px] font-semibold text-white shadow-[0_0_10px_rgba(59,130,246,0.35)]">
-                  RP
-                </div>
-                <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-emerald-200">
-                  <span className="status-dot pulse-slow ai-animate h-2 w-2" />
-                  Online
-                </div>
+          <div className="hidden items-center gap-6 md:grid md:grid-cols-[auto_1fr_auto]">
+            <a href="#top" className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-[var(--theme-foreground)]">
+                RP
               </div>
-              <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-slate-300">
-                <span className="ai-blink ai-animate text-blue-300">{"\u25CF"}</span>
-                <span suppressHydrationWarning>
+              <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+                Rishabh Paul
+              </div>
+            </a>
+
+            <nav className="flex items-center justify-center gap-5 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="transition hover:text-[var(--theme-foreground)]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex items-center justify-end gap-4 text-xs text-[color:var(--theme-muted)]">
+              <div className="flex items-center gap-2">
+                <span className="status-dot pulse-slow ai-animate" />
+                <span className="uppercase tracking-[0.25em] text-emerald-300">
+                  Online
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-[10px]">
+                <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+                  {"\u25CF"}
+                </span>
+                <span
+                  className="uppercase tracking-[0.25em]"
+                  suppressHydrationWarning
+                >
                   {mounted && time ? time : "Loading..."}
                 </span>
               </div>
-            </div>
-            <div className="flex items-center justify-end">
-              <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-slate-300">
+              <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em]">
                 Theme
                 <select
                   value={theme}
                   onChange={(event) => setTheme(event.target.value)}
-                  className="rounded-lg border border-white/10 bg-black/60 px-2 py-1 text-[10px] text-slate-200 shadow-[0_0_10px_rgba(99,102,241,0.25)] transition hover:border-white/20"
+                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-3 py-2 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_10px_var(--theme-glow)] transition hover:border-white/20"
                 >
                   {themes.map((item) => (
                     <option key={item.value} value={item.value}>
@@ -136,11 +121,86 @@ export default function TopBar() {
                   ))}
                 </select>
               </label>
+              <button
+                type="button"
+                onClick={toggleMode}
+                aria-pressed={mode === "light"}
+                className="relative inline-flex h-6 w-12 items-center rounded-full border border-white/10 bg-white/5 transition"
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-[var(--theme-foreground)] transition ${
+                    mode === "light" ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2 md:hidden">
+            <div className="flex items-center justify-between">
+              <a href="#top" className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[10px] font-semibold text-[var(--theme-foreground)]">
+                  RP
+                </div>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+                  Rishabh Paul
+                </span>
+              </a>
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
+                <span className="status-dot pulse-slow ai-animate h-2 w-2" />
+                Online
+                <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+                  {"\u25CF"}
+                </span>
+                <span suppressHydrationWarning>
+                  {mounted && time ? time : "Loading..."}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
+                Theme
+                <select
+                  value={theme}
+                  onChange={(event) => setTheme(event.target.value)}
+                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-2 py-1 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_10px_var(--theme-glow)] transition hover:border-white/20"
+                >
+                  {themes.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                onClick={toggleMode}
+                aria-pressed={mode === "light"}
+                className="relative inline-flex h-6 w-12 items-center rounded-full border border-white/10 bg-white/5 transition"
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-[var(--theme-foreground)] transition ${
+                    mode === "light" ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <nav className="flex items-center gap-3 overflow-x-auto pb-1 text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] transition hover:text-[var(--theme-foreground)]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

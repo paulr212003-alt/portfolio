@@ -1,18 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeader from "./SectionHeader";
-
-type PopupContent = {
-  title: string;
-  role?: string;
-  duration?: string;
-  note?: string;
-  details?: string[];
-  showToggle?: boolean;
-};
 
 type TimelineEvent = {
   id: string;
@@ -20,10 +10,8 @@ type TimelineEvent = {
   label: string;
   position: number;
   align: "top" | "bottom";
-  labelMode?: "always" | "hover";
   certLink?: string;
   certLabel?: string;
-  popup?: PopupContent;
 };
 
 const events: TimelineEvent[] = [
@@ -33,7 +21,6 @@ const events: TimelineEvent[] = [
     label: "Class X",
     position: 8,
     align: "top",
-    labelMode: "always",
   },
   {
     id: "class-xii",
@@ -41,48 +28,24 @@ const events: TimelineEvent[] = [
     label: "Class XII",
     position: 24,
     align: "bottom",
-    labelMode: "always",
   },
   {
     id: "eil",
-    year: "Sep - Oct 2023",
+    year: "Sep'23 - Oct'23",
     label: "Engineers India Limited Internship",
     position: 42,
     align: "top",
-    labelMode: "always",
     certLink: "/EIL_certificate.pdf",
-    certLabel: "View Certificate",
-    popup: {
-      title: "Engineers India Limited",
-      role: "Software Engineer Intern",
-      duration: "Sep - Oct 2023",
-      details: [
-        "ASP.NET CRUD web forms development",
-        "C# backend logic",
-        "Oracle database integration",
-        "UI collaboration with engineering teams",
-      ],
-    },
+    certLabel: "View certificate",
   },
   {
     id: "prism",
-    year: "Apr 2024 - Jan 2025",
+    year: "Apr'24 - Jan'25",
     label: "Samsung PRISM Internship",
     position: 58,
     align: "bottom",
-    labelMode: "always",
     certLink: "/Samsung_Certificate.pdf",
-    certLabel: "View Certificate",
-    popup: {
-      title: "Samsung PRISM",
-      role: "Research & Development Intern",
-      duration: "Apr 2024 - Jan 2025",
-      details: [
-        "Deep learning research project on Image Blur Classification",
-        "CNN architectures and PyTorch training pipelines",
-        "Dataset validation and experimentation",
-      ],
-    },
+    certLabel: "View certificate",
   },
   {
     id: "patent",
@@ -90,13 +53,6 @@ const events: TimelineEvent[] = [
     label: "Patent Published",
     position: 74,
     align: "top",
-    labelMode: "always",
-    popup: {
-      title: "Patent Published",
-      duration: "19 Dec 2025",
-      note: "Patent granted on 19th Dec, 2025 (202541118367).",
-      showToggle: false,
-    },
   },
   {
     id: "rico",
@@ -104,332 +60,149 @@ const events: TimelineEvent[] = [
     label: "GET - Rico Auto Industries Ltd",
     position: 90,
     align: "bottom",
-    labelMode: "always",
-    popup: {
-      title: "Rico Auto Industries Ltd",
-      role: "Graduate Engineer Trainee",
-      duration: "2026",
-      details: [
-        "Developing ML models from IoT sensors for system efficiency",
-        "Visitor Management System with Node.js, MongoDB Atlas, Express, Render",
-        "Implementing ISO 27001 ISMS for IT management",
-      ],
-    },
   },
 ];
 
-const scaleDots = Array.from({ length: 32 });
-const dotPositions = scaleDots.map(
-  (_, index) => (index / (scaleDots.length - 1)) * 100
+const highlightStart =
+  events.find((event) => event.id === "class-xii")?.position ?? 24;
+const highlightEnd =
+  events.find((event) => event.id === "patent")?.position ?? 74;
+
+const mobilePositions = events.map(
+  (_, index) => (index / (events.length - 1)) * 100
 );
-const vitStartPosition = events.find((event) => event.id === "class-xii")?.position ?? 24;
-const vitEndPosition = events.find((event) => event.id === "patent")?.position ?? 74;
-const vitMarkers = dotPositions
-  .slice(0, -1)
-  .map((position, index) => (position + dotPositions[index + 1]) / 2)
-  .filter((position) => position >= vitStartPosition && position <= vitEndPosition);
-const vitLabelPosition = (() => {
-  const eil = events.find((event) => event.id === "eil")?.position ?? 42;
-  const patent = events.find((event) => event.id === "patent")?.position ?? 74;
-  return (eil + patent) / 2;
-})();
+const highlightMobileStart = mobilePositions[1] ?? 20;
+const highlightMobileEnd = mobilePositions[4] ?? 70;
 
 export default function CareerTimeline() {
-  const [active, setActive] = useState<TimelineEvent | null>(null);
-  const [showDetails, setShowDetails] = useState(false);
-  const [mobileExpandedId, setMobileExpandedId] = useState<string | null>(null);
-
-  const openPopup = (event: TimelineEvent) => {
-    if (!event.popup) return;
-    setActive(event);
-    setShowDetails(event.popup.showToggle === false);
-  };
-
-  const closePopup = () => {
-    setActive(null);
-    setShowDetails(false);
-  };
-
-  const toggleMobileDetails = (event: TimelineEvent) => {
-    if (!event.popup) return;
-    setMobileExpandedId((prev) => (prev === event.id ? null : event.id));
-  };
+  const baseLine = "rgb(var(--theme-border-rgb) / 0.35)";
+  const highlightLine = "rgba(250, 204, 21, 0.85)";
+  const highlightWidth = highlightEnd - highlightStart;
+  const highlightHeight = highlightMobileEnd - highlightMobileStart;
 
   return (
     <AnimatedSection id="timeline" className="py-12 md:py-16">
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
-        <div className="relative mt-10 hidden md:block">
-          <div className="relative mx-auto min-h-[300px] max-w-6xl px-6 py-6">
-          <div className="absolute left-0 right-0 top-1/2 flex -translate-y-1/2 items-center justify-between">
-            {scaleDots.map((_, index) => (
-              <span
-                key={`dot-${index}`}
-                className="h-1.5 w-1.5 rounded-full bg-blue-400/40 shadow-[0_0_10px_rgba(59,130,246,0.45)]"
-              />
-            ))}
-          </div>
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2">
-            {vitMarkers.map((position) => (
-              <span
-                key={`vit-${position}`}
-                className="absolute h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.9)]"
-                style={{ left: `${position}%` }}
-              />
-            ))}
-          </div>
+      <div className="relative mt-12 hidden md:block">
+        <div className="relative mx-auto min-h-[320px] max-w-6xl px-6 py-10">
+          <div
+            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2"
+            style={{ background: baseLine }}
+          />
+          <div
+            className="absolute h-0.5 -translate-y-1/2 rounded-full"
+            style={{
+              top: "calc(50% - 10px)",
+              left: `${highlightStart}%`,
+              width: `${highlightWidth}%`,
+              background: highlightLine,
+            }}
+          />
+          <span
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: `${highlightStart}%`, top: "calc(50% - 10px)" }}
+          />
+          <span
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: `${highlightEnd}%`, top: "calc(50% - 10px)" }}
+          />
 
-          {events.map((event) => {
-            const isInteractive = Boolean(event.popup);
-            const isActive = active?.id === event.id;
-            const labelState =
-              event.labelMode === "hover"
-                ? "opacity-60 group-hover:opacity-100"
-                : "opacity-100";
-
-            return (
-              <div
-                key={event.id}
-                className="absolute top-1/2 -translate-y-1/2"
-                style={{ left: `${event.position}%` }}
+          {events.map((event) => (
+            <div
+              key={event.id}
+              className="absolute top-1/2 -translate-y-1/2"
+              style={{ left: `${event.position}%` }}
+            >
+              <span className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgb(var(--theme-accent-rgb)_/_0.85)] shadow-[0_0_16px_var(--theme-glow)]" />
+              <motion.div
+                whileHover={{ y: -4 }}
+                className={`w-64 rounded-2xl border border-white/10 bg-[var(--theme-card)] px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
+                  event.align === "top" ? "-translate-y-[120%]" : "translate-y-[25%]"
+                }`}
               >
-                <motion.button
-                  type="button"
-                  onClick={() => openPopup(event)}
-                  whileHover={isInteractive ? { scale: 1.08 } : undefined}
-                  className={`group relative flex items-center justify-center ${
-                    isInteractive ? "cursor-pointer" : "cursor-default"
-                  }`}
-                >
-                  <span className="absolute h-7 w-7 rounded-full bg-blue-400/20 blur-md opacity-0 transition group-hover:opacity-100" />
-                  <span className="absolute h-6 w-6 rounded-full bg-blue-400/20 animate-pulse" />
-                  <span
-                    className={`relative h-4 w-4 rounded-full border border-blue-300/60 bg-blue-400/80 shadow-[0_0_18px_rgba(59,130,246,0.9)] transition ${
-                      isActive ? "ring-2 ring-blue-300/80" : ""
-                    } group-hover:shadow-[0_0_24px_rgba(59,130,246,1)]`}
-                  />
-
-                  <div
-                    className={`absolute left-1/2 w-60 -translate-x-1/2 text-center ${
-                      event.align === "top" ? "-top-24" : "top-10"
-                    }`}
+                <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
+                  {event.year}
+                </p>
+                <p className="mt-2 text-base font-semibold text-[var(--theme-foreground)]">
+                  {event.label}
+                </p>
+                {event.certLink ? (
+                  <a
+                    href={event.certLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
                   >
-                    <div
-                      className={`rounded-2xl border border-white/10 bg-black/75 px-4 py-2 text-xs text-slate-200 shadow-[0_0_18px_rgba(59,130,246,0.35)] transition ${labelState}`}
-                    >
-                      <p className="text-[10px] uppercase tracking-[0.25em] text-blue-200">
-                        {event.year}
-                      </p>
-                      <p className="mt-1">{event.label}</p>
-                      {event.certLink ? (
-                        <a
-                          href={event.certLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="mt-3 inline-flex items-center rounded-md border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
-                        >
-                          {event.certLabel ?? "View Certificate"}
-                        </a>
-                      ) : null}
-                    </div>
-                    {event.id === "rico" ? (
-                      <div className="mt-3 flex items-center justify-center gap-2 text-[12px] uppercase tracking-[0.25em] text-amber-200">
-                        <span className="h-3.5 w-3.5 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.95)]" />
-                        : VIT (2021-2025)
-                      </div>
-                    ) : null}
-                  </div>
-                </motion.button>
-              </div>
-            );
-          })}
-
-          <div className="mt-32 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-slate-500">
-            <span>2019</span>
-            <span>2026</span>
-          </div>
-          {/* Legend moved under Rico label */}
+                    {event.certLabel ?? "View certificate"}
+                  </a>
+                ) : null}
+              </motion.div>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="mt-10 md:hidden">
-        <div className="relative mx-auto max-w-md px-4">
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-blue-400/20" />
-          <div className="pointer-events-none absolute left-1/2 top-0 flex h-full -translate-x-1/2 flex-col items-center justify-between">
-            {scaleDots.map((_, index) => (
-              <span
-                key={`dot-mobile-${index}`}
-                className="h-1.5 w-1.5 rounded-full bg-blue-400/40 shadow-[0_0_10px_rgba(59,130,246,0.45)]"
-              />
-            ))}
-          </div>
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full -translate-x-1/2">
-            {vitMarkers.map((position) => (
-              <span
-                key={`vit-mobile-${position}`}
-                className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/80 shadow-[0_0_12px_rgba(251,191,36,0.6)]"
-                style={{ left: "50%", top: `${position}%` }}
-              />
-            ))}
-          </div>
+        <div className="relative mx-auto max-w-md px-4 py-6">
+          <div
+            className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+            style={{ background: baseLine }}
+          />
+          <div
+            className="absolute w-0.5 rounded-full"
+            style={{
+              left: "calc(50% + 10px)",
+              top: `${highlightMobileStart}%`,
+              height: `${highlightHeight}%`,
+              background: highlightLine,
+            }}
+          />
           <span
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.45em] text-amber-200/30"
-            style={{ top: `${vitLabelPosition}%` }}
-          >
-            VIT
-          </span>
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: "calc(50% + 10px)", top: `${highlightMobileStart}%` }}
+          />
+          <span
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: "calc(50% + 10px)", top: `${highlightMobileEnd}%` }}
+          />
 
-          <div className="space-y-10 py-6">
+          <div className="space-y-10">
             {events.map((event, index) => {
-              const isInteractive = Boolean(event.popup);
               const isLeft = index % 2 === 0;
-              const isExpanded = mobileExpandedId === event.id;
-
               return (
                 <div key={event.id} className="relative flex items-start">
-                  <span className="absolute left-1/2 top-4 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-400 shadow-[0_0_16px_rgba(59,130,246,0.9)]" />
-                  <motion.button
-                    type="button"
-                    onClick={() => toggleMobileDetails(event)}
-                    whileTap={isInteractive ? { scale: 0.98 } : undefined}
-                    className={`relative w-[calc(50%-20px)] ${
-                      isLeft
-                        ? "pr-6 text-right"
-                        : "ml-auto pl-6 text-left"
-                    } ${isInteractive ? "cursor-pointer" : "cursor-default"}`}
+                  <span className="absolute left-1/2 top-6 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-[rgb(var(--theme-accent-rgb)_/_0.85)] shadow-[0_0_14px_var(--theme-glow)]" />
+                  <div
+                    className={`w-[calc(50%-24px)] ${
+                      isLeft ? "pr-6 text-right" : "ml-auto pl-6 text-left"
+                    }`}
                   >
-                    <div className="glow-card neon-border rounded-2xl border border-white/10 bg-black/75 px-4 py-3 text-slate-200 shadow-[0_0_18px_rgba(59,130,246,0.35)]">
-                      <p className="text-xs uppercase tracking-[0.25em] text-blue-200">
+                    <div className="glow-card neon-border min-h-[120px] rounded-2xl border border-white/10 bg-[var(--theme-card)] px-4 py-4 text-[var(--theme-foreground)] shadow-[0_0_14px_var(--theme-glow)]">
+                      <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
                         {event.year}
                       </p>
-                      <p className="mt-1 text-base text-white">{event.label}</p>
+                      <p className="mt-2 text-base font-semibold text-[var(--theme-foreground)]">
+                        {event.label}
+                      </p>
                       {event.certLink ? (
                         <a
                           href={event.certLink}
                           target="_blank"
                           rel="noreferrer"
-                          className="mt-3 inline-flex items-center rounded-lg border border-blue-400/40 bg-blue-500/10 px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
+                          className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
                         >
-                          {event.certLabel ?? "View Certificate"}
+                          {event.certLabel ?? "View certificate"}
                         </a>
                       ) : null}
-                      {isInteractive && event.popup?.details && isExpanded ? (
-                        <div className="mt-4 space-y-2 text-xs text-slate-300">
-                          {event.popup.details.map((detail) => (
-                            <div key={detail} className="flex items-start gap-2">
-                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-400" />
-                              <span>{detail}</span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
                     </div>
-                  </motion.button>
-                  {event.id === "rico" ? (
-                    <div
-                      className={`mt-3 w-[calc(50%-20px)] ${
-                        isLeft ? "pr-6 text-right" : "ml-auto pl-6 text-left"
-                      }`}
-                    >
-                      <div
-                        className={`flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-amber-200/70 ${
-                          isLeft ? "justify-end" : "justify-start"
-                        }`}
-                      >
-                        <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
-                        VIT (2021-2025)
-                      </div>
-                    </div>
-                  ) : null}
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
       </div>
-
-      <AnimatePresence>
-        {active?.popup ? (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 md:items-start md:pt-24"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closePopup}
-          >
-            <motion.div
-              className="glow-card neon-border w-full max-w-xl rounded-3xl bg-black/80 p-6 text-slate-200"
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">
-                    {active.popup.title}
-                  </h3>
-                  {active.popup.role ? (
-                    <p className="mt-1 text-sm text-blue-200">
-                      {active.popup.role}
-                    </p>
-                  ) : null}
-                </div>
-                {active.popup.duration ? (
-                  <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-200">
-                    {active.popup.duration}
-                  </span>
-                ) : null}
-              </div>
-
-              {active.popup.note ? (
-                <p className="mt-4 text-sm text-slate-300">{active.popup.note}</p>
-              ) : null}
-
-              {active.popup.details ? (
-                <div className="mt-6">
-                  {active.popup.showToggle !== false ? (
-                    <button
-                      type="button"
-                      onClick={() => setShowDetails((prev) => !prev)}
-                      className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200"
-                    >
-                      Show Details
-                    </button>
-                  ) : null}
-                  <AnimatePresence>
-                    {showDetails ? (
-                      <motion.ul
-                        className="mt-4 space-y-2 text-sm text-slate-300"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                      >
-                        {active.popup.details.map((detail) => (
-                          <li key={detail} className="flex gap-2">
-                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-400" />
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-              ) : null}
-
-              <div className="mt-6 flex justify-end">
-                <button
-                  type="button"
-                  onClick={closePopup}
-                  className="rounded-full border border-blue-400/40 bg-blue-500/10 px-5 py-2 text-xs uppercase tracking-[0.2em] text-blue-100 transition hover:border-blue-300"
-                >
-                  Back / Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
     </AnimatedSection>
   );
 }

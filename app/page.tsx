@@ -61,7 +61,10 @@ export default function Home() {
         }}
       />
       <TopBar />
-      <main className="relative flex w-full flex-col gap-10 px-2 pb-24 sm:px-4 lg:px-8 md:gap-12">
+      <main
+        id="top"
+        className="relative flex w-full flex-col gap-10 px-2 pb-24 sm:px-4 lg:px-8 md:gap-12"
+      >
         <div className="flex flex-col gap-6">
           <HeroSection aiMode={aiMode} onAiModeChange={setAiMode} />
           {aiMode ? (

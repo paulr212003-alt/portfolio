@@ -43,7 +43,10 @@ const COLORS = [
 export default function SkillsDistribution() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
-  const [activeTechIndex, setActiveTechIndex] = useState<number | null>(null);
+  const [selectedTechIndex, setSelectedTechIndex] = useState<number | null>(null);
+  const [hoverTechIndex, setHoverTechIndex] = useState<number | null>(null);
+  const [hoverSoftIndex, setHoverSoftIndex] = useState<number | null>(null);
+  const activeTechIndex = hoverTechIndex ?? selectedTechIndex;
 
   return (
     <AnimatedSection id="skills" className="py-12 md:py-16">
@@ -104,11 +107,9 @@ export default function SkillsDistribution() {
                         ? "border-indigo-300/60 bg-indigo-500/10 shadow-[0_0_16px_rgba(99,102,241,0.35)]"
                         : "border-white/10 bg-white/5"
                     }`}
-                    onClick={() =>
-                      setActiveTechIndex((prev) => (prev === index ? null : index))
-                    }
-                    onMouseEnter={() => setActiveTechIndex(index)}
-                    onMouseLeave={() => setActiveTechIndex(null)}
+                    onClick={() => setSelectedTechIndex(index)}
+                    onMouseEnter={() => setHoverTechIndex(index)}
+                    onMouseLeave={() => setHoverTechIndex(null)}
                   >
                   <div className="flex items-center gap-3">
                     <span
@@ -150,6 +151,13 @@ export default function SkillsDistribution() {
                         <Cell
                           key={`cell-${entry.name}`}
                           fill={COLORS[index % COLORS.length]}
+                          fillOpacity={
+                            hoverSoftIndex !== null && hoverSoftIndex !== index
+                              ? 0.35
+                              : 1
+                          }
+                          stroke={hoverSoftIndex === index ? "#ffffff" : "transparent"}
+                          strokeWidth={hoverSoftIndex === index ? 2 : 0}
                         />
                       ))}
                     </Pie>
@@ -168,7 +176,13 @@ export default function SkillsDistribution() {
                 {softSkills.map((item, index) => (
                   <div
                     key={item.name}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+                    className={`rounded-xl border px-4 py-3 transition ${
+                      hoverSoftIndex === index
+                        ? "border-indigo-300/60 bg-indigo-500/10 shadow-[0_0_16px_rgba(99,102,241,0.35)]"
+                        : "border-white/10 bg-white/5"
+                    }`}
+                    onMouseEnter={() => setHoverSoftIndex(index)}
+                    onMouseLeave={() => setHoverSoftIndex(null)}
                   >
                     <div className="flex items-center gap-3">
                       <span
