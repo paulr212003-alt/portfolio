@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeader from "./SectionHeader";
 
@@ -79,48 +80,64 @@ export default function CareerTimeline() {
   const highlightLine = "rgba(250, 204, 21, 0.85)";
   const highlightWidth = highlightEnd - highlightStart;
   const highlightHeight = highlightMobileEnd - highlightMobileStart;
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
     <AnimatedSection id="timeline" className="py-12 md:py-16">
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
       <div className="relative mt-12 hidden md:block">
-        <div className="relative mx-auto min-h-[380px] max-w-6xl px-8 py-12">
-          <div
-            className="absolute left-6 right-6 top-1/2 h-[2px] -translate-y-1/2"
-            style={{ background: baseLine }}
-          />
-          <div
-            className="absolute h-[2px] -translate-y-1/2 rounded-full"
-            style={{
-              top: "calc(50% - 14px)",
-              left: `${highlightStart}%`,
-              width: `${highlightWidth}%`,
-              background: highlightLine,
-            }}
-          />
-          <span
-            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-            style={{ left: `${highlightStart}%`, top: "calc(50% - 14px)" }}
-          />
-          <span
-            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-            style={{ left: `${highlightEnd}%`, top: "calc(50% - 14px)" }}
-          />
-
-          {events.map((event) => (
+        <div className="overflow-x-auto">
+          <div className="relative min-h-[380px] min-w-[1100px] px-8 py-12">
             <div
-              key={event.id}
-              className="absolute top-1/2 -translate-y-1/2"
-              style={{ left: `${event.position}%` }}
-            >
-              <span className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgb(var(--theme-accent-rgb)_/_0.85)] shadow-[0_0_16px_var(--theme-glow)]" />
-              <motion.div
-                whileHover={{ y: -4 }}
-                className={`w-64 rounded-2xl border border-white/10 bg-[var(--theme-card)] px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
-                  event.align === "top" ? "-translate-y-[180%]" : "translate-y-[70%]"
-                }`}
+              className="absolute left-4 right-4 top-1/2 h-[2px] -translate-y-1/2"
+              style={{ background: baseLine }}
+            />
+            <div
+              className="absolute h-[2px] -translate-y-1/2 rounded-full"
+              style={{
+                top: "calc(50% - 14px)",
+                left: `${highlightStart}%`,
+                width: `${highlightWidth}%`,
+                background: highlightLine,
+              }}
+            />
+          <span
+              className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+              style={{ left: `${highlightStart}%`, top: "calc(50% - 14px)" }}
+            />
+            <span
+              className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+              style={{ left: `${highlightEnd}%`, top: "calc(50% - 14px)" }}
+            />
+
+            {events.map((event) => (
+              <div
+                key={event.id}
+                className="absolute top-1/2 -translate-y-1/2"
+                style={{ left: `${event.position}%` }}
               >
+                <button
+                  type="button"
+                  onClick={() => setActiveId(event.id)}
+                  className="relative h-6 w-6 -translate-x-1/2 -translate-y-1/2"
+                >
+                  <span
+                    className={`absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgb(var(--theme-accent-rgb)_/_0.85)] shadow-[0_0_16px_var(--theme-glow)] transition ${
+                      activeId === event.id ? "ring-2 ring-white/50" : ""
+                    }`}
+                  />
+                </button>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className={`w-64 rounded-2xl border px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
+                    event.align === "top" ? "-translate-y-[160%]" : "translate-y-[55%]"
+                  } ${
+                    activeId === event.id
+                      ? "border-white/30 bg-white/5"
+                      : "border-white/10 bg-[var(--theme-card)]"
+                  }`}
+                >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
                   {event.year}
                 </p>
@@ -132,17 +149,18 @@ export default function CareerTimeline() {
                     href={event.certLink}
                     target="_blank"
                     rel="noreferrer"
-                  className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
-                >
-                  {event.certLabel ?? "View certificate"}
-                </a>
-              ) : null}
-            </motion.div>
-          </div>
-        ))}
-          <div className="absolute right-8 bottom-2 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200">
-            <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
-            VIT
+                    className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
+                  >
+                    {event.certLabel ?? "View certificate"}
+                  </a>
+                ) : null}
+                </motion.div>
+              </div>
+            ))}
+            <div className="absolute right-8 bottom-2 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200">
+              <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
+              VIT
+            </div>
           </div>
         </div>
       </div>
@@ -204,6 +222,10 @@ export default function CareerTimeline() {
                 </div>
               );
             })}
+          </div>
+          <div className="mt-6 flex items-center justify-end gap-2 text-[11px] uppercase tracking-[0.25em] text-amber-200">
+            <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
+            VIT
           </div>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 const themes = [
   { label: "Classic", value: "classic" },
-  { label: "Obsidian Core", value: "obsidian-core" },
   { label: "Nebula Noir", value: "nebula-noir" },
   { label: "Cyber Azure", value: "cyber-azure" },
   { label: "Quantum Indigo", value: "quantum-indigo" },
@@ -60,26 +59,26 @@ export default function TopBar() {
               <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-[var(--theme-foreground)]">
                 RP
               </div>
-              <span className="text-xs uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+              <span className="text-sm uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
                 Control Node
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
               <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
                 {"\u25CF"}
               </span>
               Rishabh Paul Portfolio
             </div>
 
-            <div className="flex items-center justify-end gap-5 text-xs text-[color:var(--theme-muted)]">
+            <div className="flex items-center justify-end gap-5 text-sm text-[color:var(--theme-muted)]">
               <div className="flex items-center gap-2">
                 <span className="status-dot pulse-slow ai-animate" />
                 <span className="uppercase tracking-[0.25em] text-emerald-300">
                   Online
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-[10px]">
+              <div className="flex items-center gap-2 text-xs">
                 <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
                   {"\u25CF"}
                 </span>
@@ -90,12 +89,12 @@ export default function TopBar() {
                   {mounted && time ? time : "Loading..."}
                 </span>
               </div>
-              <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em]">
+              <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em]">
                 Theme
                 <select
                   value={theme}
                   onChange={(event) => setTheme(event.target.value)}
-                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-3 py-2 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_12px_rgb(var(--theme-accent-rgb)_/_0.35)] transition hover:border-white/20"
+                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-3 py-2 text-xs text-[var(--theme-foreground)] shadow-[0_0_12px_rgb(var(--theme-accent-rgb)_/_0.35)] transition hover:border-white/20"
                 >
                   {themes.map((item) => (
                     <option key={item.value} value={item.value}>

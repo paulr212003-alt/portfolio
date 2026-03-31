@@ -79,12 +79,37 @@ export default function ProjectsSection() {
                   href={project.launchLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="group mb-4 flex w-[92%] items-center gap-4 rounded-full border border-sky-400/40 bg-black/70 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-100 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition hover:border-sky-300 hover:shadow-[0_0_28px_rgba(56,189,248,0.55)] md:w-full"
+                  className="group mb-4 flex w-[92%] items-center gap-4 rounded-full border bg-black/70 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--theme-foreground)] transition md:w-full"
+                  style={{
+                    borderColor: "rgb(var(--theme-accent-rgb) / 0.45)",
+                    boxShadow:
+                      "0 0 18px rgb(var(--theme-accent-rgb) / 0.35)",
+                  }}
                 >
                   <span className="relative flex h-16 w-16 items-center justify-center">
-                    <span className="absolute -inset-1 rounded-full border border-sky-400/60 shadow-[0_0_18px_rgba(56,189,248,0.35)]" />
-                    <span className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-300 via-sky-500 to-blue-600 shadow-[0_0_18px_rgba(56,189,248,0.9)]" />
-                    <span className="absolute -top-2 left-1/2 h-4 w-8 -translate-x-1/2 rounded-full bg-sky-400/40 blur-sm transition group-hover:-top-3" />
+                    <span
+                      className="absolute -inset-1 rounded-full border"
+                      style={{
+                        borderColor: "rgb(var(--theme-accent-rgb) / 0.6)",
+                        boxShadow:
+                          "0 0 18px rgb(var(--theme-accent-rgb) / 0.35)",
+                      }}
+                    />
+                    <span
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, rgb(var(--theme-accent-2-rgb)), rgb(var(--theme-accent-rgb)))",
+                        boxShadow:
+                          "0 0 18px rgb(var(--theme-accent-rgb) / 0.8)",
+                      }}
+                    />
+                    <span
+                      className="absolute -top-2 left-1/2 h-4 w-8 -translate-x-1/2 rounded-full blur-sm transition group-hover:-top-3"
+                      style={{
+                        background: "rgb(var(--theme-accent-rgb) / 0.4)",
+                      }}
+                    />
                   <span className="relative text-[9px] font-bold tracking-[0.08em] leading-none text-black">
                     START
                   </span>
