@@ -22,6 +22,7 @@ type HeroSectionProps = {
 export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps) {
   const [terminalMode, setTerminalMode] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [imageSrc, setImageSrc] = useState("/profile.jpg");
 
   return (
     <section className="relative overflow-hidden pb-10 pt-12 md:pb-16 md:pt-20">
@@ -39,13 +40,19 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
                   </div>
                 ) : (
                   <Image
-                    src="/profile.jpg"
+                    src={imageSrc}
                     alt="Rishabh Paul"
                     fill
                     sizes="96px"
                     priority
                     className="object-cover"
-                    onError={() => setImageError(true)}
+                    onError={() => {
+                      if (imageSrc.endsWith(".jpg")) {
+                        setImageSrc("/profile.png");
+                      } else {
+                        setImageError(true);
+                      }
+                    }}
                   />
                 )}
               </div>

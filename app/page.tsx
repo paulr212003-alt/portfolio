@@ -10,6 +10,7 @@ import PatentShowcase from "./components/PatentShowcase";
 import ProjectsSection from "./components/ProjectsSection";
 import SkillRadarSection from "./components/SkillRadarSection";
 import SkillsDistribution from "./components/SkillsDistribution";
+import SectionNavBar from "./components/SectionNavBar";
 import TopBar from "./components/TopBar";
 
 export default function Home() {
@@ -61,6 +62,7 @@ export default function Home() {
         }}
       />
       <TopBar />
+      <SectionNavBar />
       <main
         id="top"
         className="relative flex w-full flex-col gap-10 px-2 pb-24 sm:px-4 lg:px-8 md:gap-12"

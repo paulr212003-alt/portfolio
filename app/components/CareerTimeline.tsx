@@ -19,21 +19,21 @@ const events: TimelineEvent[] = [
     id: "class-x",
     year: "2019",
     label: "Class X",
-    position: 8,
+    position: 12,
     align: "top",
   },
   {
     id: "class-xii",
     year: "2021",
     label: "Class XII",
-    position: 24,
+    position: 28,
     align: "bottom",
   },
   {
     id: "eil",
     year: "Sep'23 - Oct'23",
     label: "Engineers India Limited Internship",
-    position: 42,
+    position: 44,
     align: "top",
     certLink: "/EIL_certificate.pdf",
     certLabel: "View certificate",
@@ -42,7 +42,7 @@ const events: TimelineEvent[] = [
     id: "prism",
     year: "Apr'24 - Jan'25",
     label: "Samsung PRISM Internship",
-    position: 58,
+    position: 60,
     align: "bottom",
     certLink: "/Samsung_Certificate.pdf",
     certLabel: "View certificate",
@@ -51,14 +51,14 @@ const events: TimelineEvent[] = [
     id: "patent",
     year: "2025",
     label: "Patent Published",
-    position: 74,
+    position: 76,
     align: "top",
   },
   {
     id: "rico",
     year: "2026",
     label: "GET - Rico Auto Industries Ltd",
-    position: 90,
+    position: 88,
     align: "bottom",
   },
 ];
@@ -75,7 +75,7 @@ const highlightMobileStart = mobilePositions[1] ?? 20;
 const highlightMobileEnd = mobilePositions[4] ?? 70;
 
 export default function CareerTimeline() {
-  const baseLine = "rgb(var(--theme-border-rgb) / 0.35)";
+  const baseLine = "rgb(var(--theme-border-rgb) / 0.55)";
   const highlightLine = "rgba(250, 204, 21, 0.85)";
   const highlightWidth = highlightEnd - highlightStart;
   const highlightHeight = highlightMobileEnd - highlightMobileStart;
@@ -85,15 +85,15 @@ export default function CareerTimeline() {
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
       <div className="relative mt-12 hidden md:block">
-        <div className="relative mx-auto min-h-[320px] max-w-6xl px-6 py-10">
+        <div className="relative mx-auto min-h-[380px] max-w-6xl px-8 py-12">
           <div
-            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2"
+            className="absolute left-6 right-6 top-1/2 h-[2px] -translate-y-1/2"
             style={{ background: baseLine }}
           />
           <div
-            className="absolute h-0.5 -translate-y-1/2 rounded-full"
+            className="absolute h-[2px] -translate-y-1/2 rounded-full"
             style={{
-              top: "calc(50% - 10px)",
+              top: "calc(50% - 14px)",
               left: `${highlightStart}%`,
               width: `${highlightWidth}%`,
               background: highlightLine,
@@ -101,11 +101,11 @@ export default function CareerTimeline() {
           />
           <span
             className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-            style={{ left: `${highlightStart}%`, top: "calc(50% - 10px)" }}
+            style={{ left: `${highlightStart}%`, top: "calc(50% - 14px)" }}
           />
           <span
             className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-            style={{ left: `${highlightEnd}%`, top: "calc(50% - 10px)" }}
+            style={{ left: `${highlightEnd}%`, top: "calc(50% - 14px)" }}
           />
 
           {events.map((event) => (
@@ -118,7 +118,7 @@ export default function CareerTimeline() {
               <motion.div
                 whileHover={{ y: -4 }}
                 className={`w-64 rounded-2xl border border-white/10 bg-[var(--theme-card)] px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
-                  event.align === "top" ? "-translate-y-[120%]" : "translate-y-[25%]"
+                  event.align === "top" ? "-translate-y-[180%]" : "translate-y-[70%]"
                 }`}
               >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
@@ -132,14 +132,18 @@ export default function CareerTimeline() {
                     href={event.certLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
-                  >
-                    {event.certLabel ?? "View certificate"}
-                  </a>
-                ) : null}
-              </motion.div>
-            </div>
-          ))}
+                  className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
+                >
+                  {event.certLabel ?? "View certificate"}
+                </a>
+              ) : null}
+            </motion.div>
+          </div>
+        ))}
+          <div className="absolute right-8 bottom-2 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200">
+            <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
+            VIT
+          </div>
         </div>
       </div>
 

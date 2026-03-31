@@ -15,15 +15,6 @@ const themes = [
   { label: "Sandstone Calm", value: "sandstone-calm" },
 ];
 
-const navLinks = [
-  { label: "Projects", href: "#projects" },
-  { label: "Timeline", href: "#timeline" },
-  { label: "Academics", href: "#education" },
-  { label: "Publications", href: "#research" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
-];
-
 const formatTime = (date: Date) => {
   const datePart = date.toLocaleDateString("en-US", {
     month: "short",
@@ -64,29 +55,24 @@ export default function TopBar() {
       <div className="cyber-panel neon-border relative border-b border-white/5 px-3 py-2 backdrop-blur-2xl md:px-5 md:py-3">
         <div className="ai-shimmer ai-animate pointer-events-none absolute left-0 right-0 top-0 h-px bg-[linear-gradient(90deg,_transparent,_rgb(var(--theme-accent-rgb)_/_0.5),_transparent)]" />
         <div className="mx-auto max-w-6xl">
-          <div className="hidden items-center gap-6 md:grid md:grid-cols-[auto_1fr_auto]">
-            <a href="#top" className="flex items-center gap-3">
+          <div className="hidden items-center justify-between gap-4 md:flex">
+            <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-[var(--theme-foreground)]">
                 RP
               </div>
-              <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
-                Rishabh Paul
-              </div>
-            </a>
+              <span className="text-xs uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+                Control Node
+              </span>
+            </div>
 
-            <nav className="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="transition hover:text-[var(--theme-foreground)]"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
+              <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+                {"\u25CF"}
+              </span>
+              Rishabh Paul Portfolio
+            </div>
 
-            <div className="flex items-center justify-end gap-4 text-xs text-[color:var(--theme-muted)]">
+            <div className="flex items-center justify-end gap-5 text-xs text-[color:var(--theme-muted)]">
               <div className="flex items-center gap-2">
                 <span className="status-dot pulse-slow ai-animate" />
                 <span className="uppercase tracking-[0.25em] text-emerald-300">
@@ -123,17 +109,16 @@ export default function TopBar() {
 
           <div className="flex flex-col gap-2 md:hidden">
             <div className="flex items-center justify-between">
-              <a href="#top" className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[10px] font-semibold text-[var(--theme-foreground)]">
                   RP
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
-                  Rishabh Paul
-                </span>
-              </a>
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
-                <span className="status-dot pulse-slow ai-animate h-2 w-2" />
-                Online
+                <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-emerald-200">
+                  <span className="status-dot pulse-slow ai-animate h-2 w-2" />
+                  Online
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
                 <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
                   {"\u25CF"}
                 </span>
@@ -142,8 +127,7 @@ export default function TopBar() {
                 </span>
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-end">
               <label className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
                 Theme
                 <select
@@ -159,18 +143,6 @@ export default function TopBar() {
                 </select>
               </label>
             </div>
-
-            <nav className="flex flex-wrap items-center justify-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] transition hover:text-[var(--theme-foreground)]"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
           </div>
         </div>
       </div>
