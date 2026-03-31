@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="obsidian-ivory" data-mode="dark" data-ai="on">
+    <html lang="en" data-theme="classic" data-ai="on">
       <body
         className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-foreground)] antialiased"
       >

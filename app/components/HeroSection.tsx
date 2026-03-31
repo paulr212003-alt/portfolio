@@ -21,6 +21,7 @@ type HeroSectionProps = {
 
 export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps) {
   const [terminalMode, setTerminalMode] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   return (
     <section className="relative overflow-hidden pb-10 pt-12 md:pb-16 md:pt-20">
@@ -31,15 +32,22 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
               Portfolio
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-4">
-              <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/15 shadow-[0_0_16px_var(--theme-glow)] sm:h-20 sm:w-20">
-                <Image
-                  src="/profile.jpg"
-                  alt="Rishabh Paul"
-                  fill
-                  sizes="80px"
-                  priority
-                  className="object-cover"
-                />
+              <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15 bg-black/40 shadow-[0_0_16px_rgb(var(--theme-accent-rgb)_/_0.4)] sm:h-24 sm:w-24">
+                {imageError ? (
+                  <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-white">
+                    RP
+                  </div>
+                ) : (
+                  <Image
+                    src="/profile.jpg"
+                    alt="Rishabh Paul"
+                    fill
+                    sizes="96px"
+                    priority
+                    className="object-cover"
+                    onError={() => setImageError(true)}
+                  />
+                )}
               </div>
               <h1 className="text-3xl font-semibold text-white sm:text-4xl md:text-6xl font-display glow-text">
                 Rishabh Paul

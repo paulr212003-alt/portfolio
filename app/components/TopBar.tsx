@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 
 const themes = [
-  { label: "Obsidian Ivory", value: "obsidian-ivory" },
-  { label: "Molten Umber", value: "molten-umber" },
-  { label: "Verdant Nocturne", value: "verdant-nocturne" },
-  { label: "Imperial Amethyst", value: "imperial-amethyst" },
-  { label: "Abyssal Azure", value: "abyssal-azure" },
-  { label: "Crimson Noir", value: "crimson-noir" },
-  { label: "Gilded Onyx", value: "gilded-onyx" },
+  { label: "Classic", value: "classic" },
+  { label: "Obsidian Core", value: "obsidian-core" },
+  { label: "Nebula Noir", value: "nebula-noir" },
+  { label: "Cyber Azure", value: "cyber-azure" },
+  { label: "Quantum Indigo", value: "quantum-indigo" },
+  { label: "Solar Ember", value: "solar-ember" },
+  { label: "Emerald Pulse", value: "emerald-pulse" },
+  { label: "Graphite Frost", value: "graphite-frost" },
+  { label: "Aurora Flux", value: "aurora-flux" },
+  { label: "Sandstone Calm", value: "sandstone-calm" },
 ];
 
 const navLinks = [
@@ -36,8 +39,7 @@ const formatTime = (date: Date) => {
 
 export default function TopBar() {
   const [time, setTime] = useState("");
-  const [theme, setTheme] = useState("obsidian-ivory");
-  const [mode, setMode] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState("classic");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -47,8 +49,7 @@ export default function TopBar() {
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.theme = theme;
-    root.dataset.mode = mode;
-  }, [theme, mode]);
+  }, [theme]);
 
   useEffect(() => {
     setTime(formatTime(new Date()));
@@ -57,10 +58,6 @@ export default function TopBar() {
     }, 1000);
     return () => window.clearInterval(interval);
   }, []);
-
-  const toggleMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
 
   return (
     <div className="sticky top-0 z-40 w-full">
@@ -77,7 +74,7 @@ export default function TopBar() {
               </div>
             </a>
 
-            <nav className="flex items-center justify-center gap-5 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
+            <nav className="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -112,7 +109,7 @@ export default function TopBar() {
                 <select
                   value={theme}
                   onChange={(event) => setTheme(event.target.value)}
-                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-3 py-2 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_10px_var(--theme-glow)] transition hover:border-white/20"
+                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-3 py-2 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_12px_rgb(var(--theme-accent-rgb)_/_0.35)] transition hover:border-white/20"
                 >
                   {themes.map((item) => (
                     <option key={item.value} value={item.value}>
@@ -121,18 +118,6 @@ export default function TopBar() {
                   ))}
                 </select>
               </label>
-              <button
-                type="button"
-                onClick={toggleMode}
-                aria-pressed={mode === "light"}
-                className="relative inline-flex h-6 w-12 items-center rounded-full border border-white/10 bg-white/5 transition"
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-[var(--theme-foreground)] transition ${
-                    mode === "light" ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
             </div>
           </div>
 
@@ -164,7 +149,7 @@ export default function TopBar() {
                 <select
                   value={theme}
                   onChange={(event) => setTheme(event.target.value)}
-                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-2 py-1 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_10px_var(--theme-glow)] transition hover:border-white/20"
+                  className="rounded-lg border border-white/10 bg-[var(--theme-surface)] px-2 py-1 text-[10px] text-[var(--theme-foreground)] shadow-[0_0_12px_rgb(var(--theme-accent-rgb)_/_0.35)] transition hover:border-white/20"
                 >
                   {themes.map((item) => (
                     <option key={item.value} value={item.value}>
@@ -173,21 +158,9 @@ export default function TopBar() {
                   ))}
                 </select>
               </label>
-              <button
-                type="button"
-                onClick={toggleMode}
-                aria-pressed={mode === "light"}
-                className="relative inline-flex h-6 w-12 items-center rounded-full border border-white/10 bg-white/5 transition"
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-[var(--theme-foreground)] transition ${
-                    mode === "light" ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
             </div>
 
-            <nav className="flex items-center gap-3 overflow-x-auto pb-1 text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
+            <nav className="flex flex-wrap items-center justify-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[color:var(--theme-muted)]">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
