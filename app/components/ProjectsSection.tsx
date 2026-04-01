@@ -29,8 +29,8 @@ const projects = [
     title: "Visitor Management System",
     description:
       "Secure visitor tracking system built for industrial operations and deployment workflows.",
-    stack: ["Node.js", "Express", "MongoDB Atlas", "Render"],
-    highlight: "Deployed on Render with analytics dashboards.",
+    stack: ["Node.js", "Express", "MongoDB Atlas", "Vercel"],
+    highlight: "Deployed on Vercel with analytics dashboards.",
     link: "https://github.com/paulr212003-alt/rico-visitor-portal",
     launchLink: "https://crash-pearl-three.vercel.app/index.html",
   },

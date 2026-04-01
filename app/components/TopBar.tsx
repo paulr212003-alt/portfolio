@@ -65,7 +65,7 @@ export default function TopBar() {
             </div>
 
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[color:var(--theme-muted)]">
-              <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+              <span className="ai-blink ai-animate text-[rgb(var(--theme-accent-rgb))]">
                 {"\u25CF"}
               </span>
               Rishabh Paul Portfolio
@@ -79,7 +79,7 @@ export default function TopBar() {
                 </span>
               </div>
               <div className="flex items-center gap-2 text-xs">
-                <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+                <span className="ai-blink ai-animate text-[rgb(var(--theme-accent-rgb))]">
                   {"\u25CF"}
                 </span>
                 <span
@@ -118,7 +118,7 @@ export default function TopBar() {
                 </div>
               </div>
               <div className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-[color:var(--theme-muted)]">
-                <span className="ai-blink ai-animate text-[var(--theme-foreground)]">
+                <span className="ai-blink ai-animate text-[rgb(var(--theme-accent-rgb))]">
                   {"\u25CF"}
                 </span>
                 <span suppressHydrationWarning>

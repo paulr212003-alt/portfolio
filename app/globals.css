@@ -272,7 +272,7 @@
   }
 
   .pulse-slow {
-    animation: soft-pulse 2s ease-in-out infinite;
+    animation: soft-pulse 1s ease-in-out infinite;
   }
 
   [data-ai="off"] .ai-animate {

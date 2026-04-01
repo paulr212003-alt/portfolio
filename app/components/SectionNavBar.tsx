@@ -11,7 +11,7 @@ const navLinks = [
 
 export default function SectionNavBar() {
   return (
-    <div className="fixed top-[64px] z-30 w-full md:top-[72px]">
+    <div className="fixed top-[104px] z-30 w-full md:top-[72px]">
       <div className="cyber-panel neon-border border-b border-white/5 px-3 py-2 backdrop-blur-2xl md:px-4">
         <div className="mx-auto max-w-6xl">
           <nav className="flex flex-nowrap items-center justify-start gap-2 overflow-x-auto text-[10px] uppercase tracking-[0.35em] text-[color:var(--theme-muted)] md:flex-wrap md:justify-center md:gap-4 md:overflow-visible">
