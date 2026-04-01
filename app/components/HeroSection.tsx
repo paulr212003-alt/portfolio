@@ -22,7 +22,7 @@ type HeroSectionProps = {
 export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps) {
   const [terminalMode, setTerminalMode] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [imageSrc, setImageSrc] = useState("/profile.jpg");
+  const [imageSrc, setImageSrc] = useState("/profile.png");
 
   return (
     <section className="relative overflow-hidden pb-10 pt-12 md:pb-16 md:pt-20">
@@ -47,8 +47,8 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
                     priority
                     className="object-cover object-[50%_20%]"
                     onError={() => {
-                      if (imageSrc.endsWith(".jpg")) {
-                        setImageSrc("/profile.png");
+                      if (imageSrc.endsWith(".png")) {
+                        setImageSrc("/profile.jpg");
                       } else {
                         setImageError(true);
                       }

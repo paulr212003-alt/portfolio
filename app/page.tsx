@@ -80,13 +80,13 @@ export default function Home() {
         </div>
         <CareerTimeline />
         <ProjectsSection />
-        <div className="md:hidden">
-          <EducationAnalytics />
-          <PatentShowcase />
-        </div>
-        <div className="hidden md:block">
-          <PatentShowcase />
-          <EducationAnalytics />
+        <div className="flex flex-col gap-10 md:gap-12">
+          <div className="order-2 md:order-1">
+            <PatentShowcase />
+          </div>
+          <div className="order-1 md:order-2">
+            <EducationAnalytics />
+          </div>
         </div>
         <SkillsDistribution />
         <SkillRadarSection />
