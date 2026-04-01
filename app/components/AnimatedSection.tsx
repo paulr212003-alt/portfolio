@@ -17,7 +17,7 @@ export default function AnimatedSection({
   return (
     <motion.section
       id={id}
-      className={className}
+      className={`scroll-mt-32 md:scroll-mt-40 ${className ?? ""}`}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}

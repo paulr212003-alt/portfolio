@@ -45,7 +45,7 @@ export default function HeroSection({ aiMode, onAiModeChange }: HeroSectionProps
                     fill
                     sizes="96px"
                     priority
-                    className="object-cover"
+                    className="object-cover object-[50%_20%]"
                     onError={() => {
                       if (imageSrc.endsWith(".jpg")) {
                         setImageSrc("/profile.png");

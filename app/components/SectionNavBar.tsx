@@ -5,7 +5,7 @@ const navLinks = [
   { label: "Career", href: "#timeline" },
   { label: "Projects", href: "#projects" },
   { label: "Patent", href: "#research" },
-  { label: "Academics", href: "#education" },
+  { label: "Academic", href: "#education" },
   { label: "Skills", href: "#skills" },
 ];
 
