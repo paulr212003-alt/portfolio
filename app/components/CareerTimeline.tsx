@@ -20,21 +20,21 @@ const events: TimelineEvent[] = [
     id: "class-x",
     year: "2019",
     label: "Class X",
-    position: 10,
+    position: 12,
     align: "top",
   },
   {
     id: "class-xii",
     year: "2021",
     label: "Class XII",
-    position: 26,
+    position: 28,
     align: "bottom",
   },
   {
     id: "eil",
     year: "Sep'23 - Oct'23",
     label: "Engineers India Limited Internship",
-    position: 40,
+    position: 44,
     align: "top",
     certLink: "/EIL_certificate.pdf",
     certLabel: "View certificate",
@@ -43,7 +43,7 @@ const events: TimelineEvent[] = [
     id: "prism",
     year: "Apr'24 - Jan'25",
     label: "Samsung PRISM Internship",
-    position: 56,
+    position: 60,
     align: "bottom",
     certLink: "/Samsung_Certificate.pdf",
     certLabel: "View certificate",
@@ -52,14 +52,14 @@ const events: TimelineEvent[] = [
     id: "patent",
     year: "2025",
     label: "Patent Published",
-    position: 72,
+    position: 76,
     align: "top",
   },
   {
     id: "rico",
     year: "2026",
     label: "GET - Rico Auto Industries Ltd",
-    position: 86,
+    position: 88,
     align: "bottom",
   },
 ];
@@ -87,31 +87,40 @@ export default function CareerTimeline() {
       <SectionHeader title="Career Timeline" subtitle="Signal Map" />
 
       <div className="relative mt-12 hidden md:block">
-        <div className="overflow-x-auto">
-          <div className="relative min-h-[360px] min-w-[1180px] px-10 py-10">
-            <div
-              className="absolute left-8 right-8 top-1/2 h-[2px] -translate-y-1/2"
-              style={{ background: baseLine }}
-            />
-            <div
-              className="absolute h-[2px] -translate-y-1/2 rounded-full"
-              style={{
-                top: "calc(50% - 14px)",
-                left: `${highlightStart}%`,
-                width: `${highlightWidth}%`,
-                background: highlightLine,
-              }}
-            />
+        <div className="relative mx-auto min-h-[360px] max-w-6xl px-16 py-10">
+          <div
+            className="absolute left-10 right-10 top-1/2 h-[2px] -translate-y-1/2"
+            style={{ background: baseLine }}
+          />
+          <div
+            className="absolute h-[2px] -translate-y-1/2 rounded-full"
+            style={{
+              top: "calc(50% - 14px)",
+              left: `${highlightStart}%`,
+              width: `${highlightWidth}%`,
+              background: highlightLine,
+            }}
+          />
           <span
-              className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-              style={{ left: `${highlightStart}%`, top: "calc(50% - 14px)" }}
-            />
-            <span
-              className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
-              style={{ left: `${highlightEnd}%`, top: "calc(50% - 14px)" }}
-            />
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: `${highlightStart}%`, top: "calc(50% - 14px)" }}
+          />
+          <span
+            className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
+            style={{ left: `${highlightEnd}%`, top: "calc(50% - 14px)" }}
+          />
 
-            {events.map((event) => (
+          {events.map((event) => {
+            const isPatent = event.id === "patent";
+            const cardClasses = `absolute left-1/2 w-64 -translate-x-1/2 rounded-2xl border px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
+              event.align === "top" ? "-translate-y-[135%]" : "translate-y-[40%]"
+            } ${
+              activeId === event.id
+                ? "border-white/30 bg-white/5"
+                : "border-white/10 bg-[var(--theme-card)]"
+            }`;
+
+            return (
               <div
                 key={event.id}
                 className="absolute top-1/2"
@@ -128,39 +137,41 @@ export default function CareerTimeline() {
                     }`}
                   />
                 </button>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  className={`absolute left-1/2 w-64 -translate-x-1/2 rounded-2xl border px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
-                    event.align === "top" ? "-translate-y-[140%]" : "translate-y-[35%]"
-                  } ${
-                    activeId === event.id
-                      ? "border-white/30 bg-white/5"
-                      : "border-white/10 bg-[var(--theme-card)]"
-                  }`}
-                >
-                <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
-                  {event.year}
-                </p>
-                <p className="mt-2 text-base font-semibold text-[var(--theme-foreground)]">
-                  {event.label}
-                </p>
-                {event.certLink ? (
-                  <a
-                    href={event.certLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
-                  >
-                    {event.certLabel ?? "View certificate"}
+                {isPatent ? (
+                  <a href="#research" className={cardClasses}>
+                    <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
+                      {event.year}
+                    </p>
+                    <p className="mt-2 text-base font-semibold text-[var(--theme-foreground)]">
+                      {event.label}
+                    </p>
                   </a>
-                ) : null}
-                </motion.div>
+                ) : (
+                  <motion.div whileHover={{ y: -4 }} className={cardClasses}>
+                    <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--theme-muted)]">
+                      {event.year}
+                    </p>
+                    <p className="mt-2 text-base font-semibold text-[var(--theme-foreground)]">
+                      {event.label}
+                    </p>
+                    {event.certLink ? (
+                      <a
+                        href={event.certLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-4 inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-[var(--theme-foreground)] transition hover:border-white/30"
+                      >
+                        {event.certLabel ?? "View certificate"}
+                      </a>
+                    ) : null}
+                  </motion.div>
+                )}
               </div>
-            ))}
-            <div className="absolute right-8 bottom-2 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200">
-              <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
-              VIT
-            </div>
+            );
+          })}
+          <div className="absolute right-6 -bottom-2 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200">
+            <span className="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.8)]" />
+            VIT
           </div>
         </div>
       </div>

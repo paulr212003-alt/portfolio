@@ -122,7 +122,7 @@ export default function ProjectsSection() {
               {project.viewPatent ? (
                 <a
                   href="#research"
-                  className="inline-flex items-center rounded-md border border-indigo-400/40 bg-indigo-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-indigo-100 transition hover:border-indigo-300 hover:bg-indigo-500/20"
+                  className="inline-flex items-center rounded-md border border-indigo-400/40 bg-indigo-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-indigo-100 transition hover:border-indigo-300 hover:bg-indigo-500/20 shadow-[0_0_14px_rgba(99,102,241,0.25)] hover:shadow-[0_0_18px_rgba(99,102,241,0.35)]"
                 >
                   View Patent
                 </a>
