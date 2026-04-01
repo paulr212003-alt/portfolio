@@ -65,7 +65,7 @@ export default function Home() {
       <SectionNavBar />
       <main
         id="top"
-        className="relative flex w-full flex-col gap-10 px-2 pb-24 sm:px-4 lg:px-8 md:gap-12"
+        className="relative flex w-full flex-col gap-10 px-2 pb-24 pt-20 sm:px-4 lg:px-8 md:gap-12 md:pt-24"
       >
         <div className="flex flex-col gap-6">
           <HeroSection aiMode={aiMode} onAiModeChange={setAiMode} />

@@ -20,21 +20,21 @@ const events: TimelineEvent[] = [
     id: "class-x",
     year: "2019",
     label: "Class X",
-    position: 12,
+    position: 10,
     align: "top",
   },
   {
     id: "class-xii",
     year: "2021",
     label: "Class XII",
-    position: 28,
+    position: 26,
     align: "bottom",
   },
   {
     id: "eil",
     year: "Sep'23 - Oct'23",
     label: "Engineers India Limited Internship",
-    position: 44,
+    position: 40,
     align: "top",
     certLink: "/EIL_certificate.pdf",
     certLabel: "View certificate",
@@ -43,7 +43,7 @@ const events: TimelineEvent[] = [
     id: "prism",
     year: "Apr'24 - Jan'25",
     label: "Samsung PRISM Internship",
-    position: 60,
+    position: 56,
     align: "bottom",
     certLink: "/Samsung_Certificate.pdf",
     certLabel: "View certificate",
@@ -52,14 +52,14 @@ const events: TimelineEvent[] = [
     id: "patent",
     year: "2025",
     label: "Patent Published",
-    position: 76,
+    position: 72,
     align: "top",
   },
   {
     id: "rico",
     year: "2026",
     label: "GET - Rico Auto Industries Ltd",
-    position: 88,
+    position: 86,
     align: "bottom",
   },
 ];
@@ -76,7 +76,7 @@ const highlightMobileStart = mobilePositions[1] ?? 20;
 const highlightMobileEnd = mobilePositions[4] ?? 70;
 
 export default function CareerTimeline() {
-  const baseLine = "rgb(var(--theme-border-rgb) / 0.55)";
+  const baseLine = "rgb(var(--theme-border-rgb) / 0.65)";
   const highlightLine = "rgba(250, 204, 21, 0.85)";
   const highlightWidth = highlightEnd - highlightStart;
   const highlightHeight = highlightMobileEnd - highlightMobileStart;
@@ -88,9 +88,9 @@ export default function CareerTimeline() {
 
       <div className="relative mt-12 hidden md:block">
         <div className="overflow-x-auto">
-          <div className="relative min-h-[380px] min-w-[1100px] px-8 py-12">
+          <div className="relative min-h-[360px] min-w-[1180px] px-10 py-10">
             <div
-              className="absolute left-4 right-4 top-1/2 h-[2px] -translate-y-1/2"
+              className="absolute left-8 right-8 top-1/2 h-[2px] -translate-y-1/2"
               style={{ background: baseLine }}
             />
             <div
@@ -114,7 +114,7 @@ export default function CareerTimeline() {
             {events.map((event) => (
               <div
                 key={event.id}
-                className="absolute top-1/2 -translate-y-1/2"
+                className="absolute top-1/2"
                 style={{ left: `${event.position}%` }}
               >
                 <button
@@ -130,8 +130,8 @@ export default function CareerTimeline() {
                 </button>
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className={`w-64 rounded-2xl border px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
-                    event.align === "top" ? "-translate-y-[160%]" : "translate-y-[55%]"
+                  className={`absolute left-1/2 w-64 -translate-x-1/2 rounded-2xl border px-5 py-4 text-sm text-[var(--theme-foreground)] shadow-[0_0_18px_var(--theme-glow)] ${
+                    event.align === "top" ? "-translate-y-[140%]" : "translate-y-[35%]"
                   } ${
                     activeId === event.id
                       ? "border-white/30 bg-white/5"
